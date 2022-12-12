@@ -28,12 +28,30 @@ namespace WPF_SHF_Element_lib
             grid.ItemsSource = elements;
         }
 
-       List<Element> elements = new List<Element>();
+        List<string> elements = new List<string>();
+        Data data = new Data();
         
-    }
-    
 
-   public class Element
+        public void dataGrid1_Fill()
+        {
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            elements = data.elements;
+            int i =0;
+            foreach (string element in data.elements)
+                MessageBox.Show(element);
+            foreach (string element in elements)
+            {
+                if (grid.Items.Count - i == 0) grid.Items.Add(element);
+            }
+        }
+    }
+
+
+    public class Element
     {
         public Element(string firstName, string lastName)
         {
@@ -48,9 +66,10 @@ namespace WPF_SHF_Element_lib
 
         private string firstName;
         private string lastName;
-       
-
+     
     }
+
+
 
 
 

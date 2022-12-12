@@ -21,14 +21,15 @@ namespace WPF_SHF_Element_lib
     /// </summary>
     public partial class Window1 : Window
     {
-        Dictionary<string, string> values = new Dictionary<string, string>();
+        //Dictionary<string, string> values = new Dictionary<string, string>();
         string group, name;
         string[] parameters;
         string file;
         string temp_values;
         Window2 window2 = new Window2();
         Window3 window3 = new Window3();
-        List<Element> elements;
+        Data data = new Data();
+        public List<string> elements;
         public Window1()
         {
 
@@ -45,13 +46,9 @@ namespace WPF_SHF_Element_lib
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            dataGrid1_Fill();
             this.Hide();
-
             window2.Show();
-
-
-
         }
 
         private void Label1_Next_Click(object sender, EventArgs e)
@@ -78,9 +75,16 @@ namespace WPF_SHF_Element_lib
 
         public void dataGrid1_Fill()
         {
-            elements = values_textbox.Text.Split(',').ToList;
+            elements = values_textbox.Text.Split(',').ToList();
+            foreach(string element in elements)
+            {
+                MessageBox.Show(element);
+            }
+            data.elements = elements;
+            foreach(string element in data.elements)
+            MessageBox.Show(element);
         }
-        public List<Element> dataElements()
+        public List<string> dataElements()
         {
             return elements;
         }
