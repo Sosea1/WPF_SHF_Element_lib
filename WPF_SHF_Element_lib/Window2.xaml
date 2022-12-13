@@ -23,10 +23,8 @@
 
         <DataGrid Grid.Row="0"  Grid.ColumnSpan="3" x:Name="grid" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="" Width="50" 
-                             Binding="{Binding Path=LastName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Формула" 
-                             Binding="{Binding Path=FirstName}"></DataGridTextColumn>
+                <DataGridTextColumn x:Name="HeaderColumn" Binding="{Binding headerColumn}" Width="80" ></DataGridTextColumn>
+                <DataGridTextColumn x:Name="FormulaColumn" Header="Формула" Width="*" Binding="{Binding formulaColumn}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
      
@@ -34,9 +32,13 @@
 
 
         <StatusBar VerticalAlignment="Bottom" Margin="0,0,0,0" Grid.ColumnSpan="3" Height="50" Grid.RowSpan="3">
-            <StatusBarItem HorizontalAlignment="Right">
-                <Button Content="Далее" HorizontalAlignment="Right" Height="22" Width="80" VerticalAlignment="Bottom" Margin="0,0,16,0"/>
+            <StatusBarItem HorizontalAlignment="Left">
+                <Button Content="Назад" HorizontalAlignment="Left" Height="22" Width="80" VerticalAlignment="Bottom" Margin="16,0,0,0" Click="ButtonBack_Click"/>
             </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <Button Content="Далее" HorizontalAlignment="Right" Height="22" Width="80" VerticalAlignment="Bottom" Margin="0,0,16,0" Click="ButtonNext_Click"/>
+            </StatusBarItem>
+            
 
         </StatusBar>
     </Grid>

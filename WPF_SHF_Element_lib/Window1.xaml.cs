@@ -26,63 +26,42 @@ namespace WPF_SHF_Element_lib
         string[] parameters;
         string file;
         string temp_values;
-        Window2 window2 = new Window2();
-        Window3 window3 = new Window3();
-        Data data = new Data();
+        
         public List<string> elements;
         public Window1()
         {
-
             InitializeComponent();
+            if (Data.values_text != null) values_textbox.Text = Data.values_text;
         }
-
-
-
 
         public void copy_file()
         {
             File.Copy(file, AppDomain.CurrentDomain.BaseDirectory + @"\element_picture\" + Path.GetFileName(nameElement.Text) + ".png");
         }
-
+            
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            dataGrid1_Fill();
+            Data.IndexGroup = comboBox1.SelectedIndex + 1;
+            if (values_textbox.Text != Data.values_text)
+            {
+                dataGrid1_Fill();
+                Data.values_text = values_textbox.Text;
+                Data.ValuesChanged = true;
+            }
+            else
+            {
+                Data.ValuesChanged = false;
+            }
+
             this.Hide();
+            Window2 window2 = new Window2();
             window2.Show();
         }
-
-        private void Label1_Next_Click(object sender, EventArgs e)
-        {
-            if (values_textbox.Text != temp_values)
-            {
-                // dataGrid1_Fill();
-            }
-            temp_values = values_textbox.Text;
-            group = comboBox1.SelectedItem.ToString();
-            name = nameElement.Text;
-            parameters = params_textbox.Text.Split(',');
-            //string[] values = textBox2.Text.Split(',');
-            //int i = 0;
-            /* foreach (string value in values)
-             {
-                 dataGridView1.Rows.Add();
-                 dataGridView1.Rows[i].HeaderCell.Value = value;
-                 i++;
-             }*/
-
-        }
-
 
         public void dataGrid1_Fill()
         {
             elements = values_textbox.Text.Split(',').ToList();
-            foreach(string element in elements)
-            {
-                MessageBox.Show(element);
-            }
-            data.elements = elements;
-            foreach(string element in data.elements)
-            MessageBox.Show(element);
+            Data.elements = elements;
         }
         public List<string> dataElements()
         {

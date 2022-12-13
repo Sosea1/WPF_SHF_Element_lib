@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Controls.Primitives;
 
 namespace WPF_SHF_Element_lib
 {
@@ -24,13 +25,14 @@ namespace WPF_SHF_Element_lib
         public Window2()
         {
             InitializeComponent();
+            grid.CanUserAddRows= false;
            
-            grid.ItemsSource = elements;
+            //grid.ItemsSource = elements;
         }
 
         List<string> elements = new List<string>();
-        Data data = new Data();
-        
+        List<DataGrid1_Elements> dataGrid1_Elements = new List<DataGrid1_Elements>();
+        List<string> temp_values = new List<string>();
 
         public void dataGrid1_Fill()
         {
@@ -39,37 +41,53 @@ namespace WPF_SHF_Element_lib
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            elements = data.elements;
-            int i =0;
-            foreach (string element in data.elements)
-                MessageBox.Show(element);
-            foreach (string element in elements)
+            if(Data.ValuesChanged == true)
             {
-                if (grid.Items.Count - i == 0) grid.Items.Add(element);
+                Data.dataGrid1_Elements.Clear();
+                foreach (string element in Data.elements)
+                {
+                    Data.dataGrid1_Elements.Add(new DataGrid1_Elements { headerColumn = element });
+                }
+                Data.temp_elements = Data.elements;
+                Data.ValuesChanged = false;
             }
+            grid.ItemsSource = Data.dataGrid1_Elements;
         }
-    }
 
 
-    public class Element
-    {
-        public Element(string firstName, string lastName)
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            this.firstName = firstName;
-            this.lastName = lastName;
+            int i = 0;
+            foreach (DataGrid1_Elements element in dataGrid1_Elements)
+            {
+                var x = grid.Columns[1].GetCellContent(grid.Items[i]) as TextBlock;
+                element.formulaColumn = x.Text;
+                i++;
+            }
+            Data.dataGrid1_Elements = dataGrid1_Elements;
+            this.Hide();
+            Window3 win = new Window3();
+            win.Show();
         }
 
-        public string FirstName { get { return this.firstName; } set { this.firstName = value; } }
-        public string LastName { get { return this.lastName; } set { this.lastName = value; } }
- 
-        private string firstName;
-        private string lastName;
-     
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            int i = 0;
+            foreach (DataGrid1_Elements element in Data.dataGrid1_Elements)
+            {
+                var x = grid.Columns[1].GetCellContent(grid.Items[i]) as TextBlock;
+                element.formulaColumn = x.Text;
+                i++;
+            }
+            Window1 win = new Window1();
+            this.Hide();
+            win.Show();
+        }
     }
 
-
-
-
-
-
+    public class DataGrid1_Elements
+    {
+        public string headerColumn { get; set; } 
+        public string formulaColumn { get; set;}
+    }
 }
