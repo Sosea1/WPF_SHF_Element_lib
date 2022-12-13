@@ -39,17 +39,14 @@ namespace WPF_SHF_Element_lib
         {
             this.firstName = firstName;
             this.lastName = lastName;
-            
         }
 
         public string FirstName { get { return this.firstName; } set { this.firstName = value; } }
         public string LastName { get { return this.lastName; } set { this.lastName = value; } }
  
-
         private string firstName;
         private string lastName;
        
-
     }
 
 
