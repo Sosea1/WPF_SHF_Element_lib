@@ -52,8 +52,10 @@ namespace WPF_SHF_Element_lib
             {
                 Data.ValuesChanged = false;
             }
-
-            this.Hide();
+            Data.group = comboBox1.Text;
+            Data.name = nameElement.Text;
+            Data.parameters = params_textbox.Text.Split(',').ToList();
+            this.Close();
             Window2 window2 = new Window2();
             window2.Show();
         }

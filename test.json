@@ -1,0 +1,66 @@
+[
+  {
+    "group": null,
+    "name": null,
+    "parameters": null,
+    "other_par": [
+      {
+        "headerColumn": "d",
+        "formulaColumn": "d"
+      },
+      {
+        "headerColumn": "d",
+        "formulaColumn": "d"
+      }
+    ],
+    "matrix": []
+  },
+  {
+    "group": null,
+    "name": null,
+    "parameters": null,
+    "other_par": [
+      {
+        "headerColumn": "",
+        "formulaColumn": ""
+      }
+    ],
+    "matrix": []
+  },
+  {
+    "group": "Четхрехполюсник",
+    "name": null,
+    "parameters": null,
+    "other_par": [
+      {
+        "headerColumn": "",
+        "formulaColumn": ""
+      }
+    ],
+    "matrix": []
+  },
+  {
+    "group": "Четырехполюсник",
+    "name": "name",
+    "parameters": [
+      "a",
+      "a",
+      "a"
+    ],
+    "other_par": [
+      {
+        "headerColumn": "d",
+        "formulaColumn": "asd"
+      },
+      {
+        "headerColumn": "d",
+        "formulaColumn": "A1"
+      },
+      {
+        "headerColumn": "d",
+        "formulaColumn": "Y"
+      }
+    ],
+    "matrix": []
+  }
+]

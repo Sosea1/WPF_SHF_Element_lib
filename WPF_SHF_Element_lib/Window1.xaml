@@ -31,10 +31,10 @@
             <Image Margin="8" Grid.Column="2" Grid.RowSpan="3" Grid.Row="1"/>
         </Border>
         <ComboBox x:Name="comboBox1" SelectedItem="0" Width="260" Height="26" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Margin="0,0,0,20">
-            <TextBlock  Text="Двуполюсники"></TextBlock>
-            <TextBlock Text="Четырехполюсники"></TextBlock>
-            <TextBlock Text="Шестиполюсники"></TextBlock>
-            <TextBlock Text="Восьмиполюсники"></TextBlock>
+            <TextBlock  Text="Двухполюсник"></TextBlock>
+            <TextBlock Text="Четырехполюсник"></TextBlock>
+            <TextBlock Text="Шестиполюсник"></TextBlock>
+            <TextBlock Text="Восьмиполюсник"></TextBlock>
 
         </ComboBox>
         <TextBox x:Name="nameElement" VerticalAlignment="Top" Width="270" Height="30" Grid.Row="2" Grid.Column="1"></TextBox>

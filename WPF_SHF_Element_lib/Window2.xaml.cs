@@ -58,14 +58,13 @@ namespace WPF_SHF_Element_lib
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             int i = 0;
-            foreach (DataGrid1_Elements element in dataGrid1_Elements)
+            foreach (DataGrid1_Elements element in Data.dataGrid1_Elements)
             {
                 var x = grid.Columns[1].GetCellContent(grid.Items[i]) as TextBlock;
                 element.formulaColumn = x.Text;
                 i++;
             }
-            Data.dataGrid1_Elements = dataGrid1_Elements;
-            this.Hide();
+            this.Close();
             Window3 win = new Window3();
             win.Show();
         }
@@ -80,7 +79,7 @@ namespace WPF_SHF_Element_lib
                 i++;
             }
             Window1 win = new Window1();
-            this.Hide();
+            this.Close();
             win.Show();
         }
     }
