@@ -42,6 +42,7 @@ namespace WPF_SHF_Element_lib
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Data.IndexGroup = comboBox1.SelectedIndex + 1;
+            MessageBox.Show(Data.IndexGroup.ToString());
             if (values_textbox.Text != Data.values_text)
             {
                 dataGrid1_Fill();

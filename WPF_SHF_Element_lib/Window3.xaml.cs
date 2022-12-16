@@ -35,9 +35,7 @@ namespace WPF_SHF_Element_lib
         string[] parameters;
         string file;
         string temp_values;
-
-
-        List<MatrixElements> MatrixElements = new List<MatrixElements>();
+        List<MatrixElements> matrixElements= new List<MatrixElements>();
         List<string> GridItems = new List<string>();
 
         public Window3()
@@ -58,10 +56,14 @@ namespace WPF_SHF_Element_lib
         {
 
             Element element = new Element();
-            List<string> matrix = new List<string>();
-            int a = 0;
-            string[] Matrix = matrix.ToArray();
-            element.AddNewElement(Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, Matrix);
+            for (int i = 0; i < dataGridView.ColumnCount; i++)
+            {
+                for (int j = 1; j < dataGridView.RowCount; j++)
+                {
+                    matrixElements.Add(new MatrixElements { column = i, element= dataGridView[j, i].Value == null ? null : dataGridView[j, i].Value.ToString()});
+                }
+            }
+            element.AddNewElement(Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, matrixElements);
         }
     
 
@@ -77,7 +79,7 @@ namespace WPF_SHF_Element_lib
             // Add the interop host control to the Grid
             // control's collection of child controls.
             this.grid1.Children.Add(host);
-            dataGridView.RowCount = Data.IndexGroup;
+            dataGridView.RowCount = Data.IndexGroup+1;
             dataGridView.ColumnCount = Data.IndexGroup;
             dataGridView.BackgroundColor = System.Drawing.Color.White;
             dataGridView.RowHeadersVisible = false;
@@ -86,13 +88,15 @@ namespace WPF_SHF_Element_lib
             {
                 dataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
+            dataGridView.AllowUserToAddRows= false;
            
         }
     }
 
     public class MatrixElements
     {
-        public string element;
+        public int column { get; set; }
+        public string element { get; set; }
     }
 
 

@@ -62,5 +62,129 @@
       }
     ],
     "matrix": []
+  },
+  {
+    "group": "Четырехполюсник",
+    "name": "",
+    "parameters": [
+      ""
+    ],
+    "other_par": [
+      {
+        "headerColumn": "",
+        "formulaColumn": ""
+      }
+    ],
+    "matrix": [
+      {
+        "column": 0,
+        "element": "ds"
+      },
+      {
+        "column": 1,
+        "element": null
+      }
+    ]
+  },
+  {
+    "group": "Четырехполюсник",
+    "name": "",
+    "parameters": [
+      ""
+    ],
+    "other_par": [
+      {
+        "headerColumn": "",
+        "formulaColumn": ""
+      }
+    ],
+    "matrix": [
+      {
+        "column": 0,
+        "element": "Tf"
+      },
+      {
+        "column": 0,
+        "element": null
+      },
+      {
+        "column": 1,
+        "element": "d"
+      },
+      {
+        "column": 1,
+        "element": "d"
+      }
+    ]
+  },
+  {
+    "group": "Четырехполюсник",
+    "name": "",
+    "parameters": [
+      ""
+    ],
+    "other_par": [
+      {
+        "headerColumn": "",
+        "formulaColumn": ""
+      }
+    ],
+    "matrix": [
+      {
+        "column": 0,
+        "element": "Tf"
+      },
+      {
+        "column": 0,
+        "element": null
+      },
+      {
+        "column": 1,
+        "element": "d"
+      },
+      {
+        "column": 1,
+        "element": "d"
+      },
+      {
+        "column": 0,
+        "element": "Tf"
+      },
+      {
+        "column": 0,
+        "element": null
+      },
+      {
+        "column": 1,
+        "element": "d"
+      },
+      {
+        "column": 1,
+        "element": "d"
+      }
+    ]
+  },
+  {
+    "group": "Четырехполюсник",
+    "name": "",
+    "parameters": [
+      ""
+    ],
+    "other_par": [
+      {
+        "headerColumn": "",
+        "formulaColumn": ""
+      }
+    ],
+    "matrix": [
+      {
+        "column": 0,
+        "element": "d"
+      },
+      {
+        "column": 1,
+        "element": null
+      }
+    ]
   }
 ]
