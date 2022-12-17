@@ -27,9 +27,7 @@ namespace WPF_SHF_Element_lib
                 AllowTrailingCommas = true,
                 WriteIndented = true
             };
-            //string file_path = @"D:\projects VScode\WPF_SHF_Element_lib\test.json";
-            //string file_path = AppDomain.CurrentDomain.BaseDirectory+fileName;
-            string file_path = AppDomain.CurrentDomain.BaseDirectory + "test.json";
+            string file_path = AppDomain.CurrentDomain.BaseDirectory+fileName;
             if (!File.Exists(file_path))
             {
                 var elementsList = new List<Element>();

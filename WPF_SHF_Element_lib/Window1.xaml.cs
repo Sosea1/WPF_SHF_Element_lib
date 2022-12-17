@@ -40,6 +40,18 @@ namespace WPF_SHF_Element_lib
             
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            switch (comboBox1.SelectedIndex)
+            {
+                case 0: Data.fileName = "2pole.json";
+                break;
+                case 1: Data.fileName = "4pole.json";
+                break;
+                case 2: Data.fileName = "6pole.json";
+                break;
+                case 3: Data.fileName = "8pole.json";
+                break;
+            }
+
             Data.IndexGroup = comboBox1.SelectedIndex + 1;
             if (values_textbox.Text != Data.values_text)
             {
