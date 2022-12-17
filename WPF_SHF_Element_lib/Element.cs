@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -18,7 +19,7 @@ namespace WPF_SHF_Element_lib
         public List<MatrixElements> matrix { get; set; }
 
 
-        public void AddNewElement(string group, string name, string[] parameters, List<DataGrid1_Elements> values, List<MatrixElements> matrix)
+        public void AddNewElement(string fileName, string group, string name, string[] parameters, List<DataGrid1_Elements> values, List<MatrixElements> matrix)
         {
             var options = new JsonSerializerOptions()
             {
@@ -26,23 +27,38 @@ namespace WPF_SHF_Element_lib
                 AllowTrailingCommas = true,
                 WriteIndented = true
             };
-            string file_path = @"D:\projects VScode\WPF_SHF_Element_lib\test.json";
-            var jsonData = File.ReadAllText(file_path);
-            var elementsList = JsonSerializer.Deserialize<List<Element>>(jsonData) ?? new List<Element>();
-
-            elementsList.Add(new Element()
+            //string file_path = @"D:\projects VScode\WPF_SHF_Element_lib\test.json";
+            //string file_path = AppDomain.CurrentDomain.BaseDirectory+fileName;
+            string file_path = AppDomain.CurrentDomain.BaseDirectory + "test.json";
+            if (!File.Exists(file_path))
             {
-                group = group,
-                name = name,
-                parameters = parameters,
-                other_par = values,
-                matrix = matrix
-            }); ;
+                var elementsList = new List<Element>();
+                elementsList.Add(new Element()
+                {
+                    group = group,
+                    name = name,
+                    parameters = parameters,
+                    other_par = values,
+                    matrix = matrix
+                });
+                File.WriteAllText(file_path, JsonSerializer.Serialize(elementsList, options));
+            }
+            else
+            {
+                var jsonData = File.ReadAllText(file_path);
+                var elementsList = JsonSerializer.Deserialize<List<Element>>(jsonData) ?? new List<Element>();
 
-            jsonData = JsonSerializer.Serialize(elementsList, options);
-            File.WriteAllText(file_path, jsonData);
-
-
+                elementsList.Add(new Element()
+                {
+                    group = group,
+                    name = name,
+                    parameters = parameters,
+                    other_par = values,
+                    matrix = matrix
+                });
+                jsonData = JsonSerializer.Serialize(elementsList, options);
+                File.WriteAllText(file_path, jsonData);
+            }
         }
     }
 }

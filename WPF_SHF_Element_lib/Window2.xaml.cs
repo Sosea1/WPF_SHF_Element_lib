@@ -25,9 +25,7 @@ namespace WPF_SHF_Element_lib
         public Window2()
         {
             InitializeComponent();
-            grid.CanUserAddRows= false;
            
-            //grid.ItemsSource = elements;
         }
 
         List<string> elements = new List<string>();
@@ -41,32 +39,58 @@ namespace WPF_SHF_Element_lib
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
+            bool f = false;
             if(Data.ValuesChanged == true)
             {
                 Data.dataGrid1_Elements.Clear();
-                foreach (string element in Data.elements)
+                if(string.IsNullOrEmpty(Data.values_text)==true)
                 {
-                    Data.dataGrid1_Elements.Add(new DataGrid1_Elements { headerColumn = element });
+                    f = true;
                 }
-                Data.temp_elements = Data.elements;
-                Data.ValuesChanged = false;
+                else
+                {
+                    foreach (string element in Data.elements)
+                    {
+                        Console.WriteLine(element);
+                        Data.dataGrid1_Elements.Add(new DataGrid1_Elements { headerColumn = element });
+                    }
+                    Data.temp_elements = Data.elements;
+                    Data.ValuesChanged = false;
+                }
             }
+            if (!f) 
             grid.ItemsSource = Data.dataGrid1_Elements;
+
+
         }
 
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             int i = 0;
+            bool f = false;
             foreach (DataGrid1_Elements element in Data.dataGrid1_Elements)
             {
                 var x = grid.Columns[1].GetCellContent(grid.Items[i]) as TextBlock;
+                if (string.IsNullOrEmpty(x.Text))
+                {
+                    f = true;
+                    break;
+                }
                 element.formulaColumn = x.Text;
                 i++;
             }
-            this.Close();
-            Window3 win = new Window3();
-            win.Show();
+            if (f)
+            {
+                MessageBox.Show("Не все формулы были введены");
+            }
+            else
+            {
+                Window3 win = new Window3();
+                this.Close();
+                win.Show();
+            }
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)

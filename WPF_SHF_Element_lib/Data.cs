@@ -17,11 +17,14 @@ namespace WPF_SHF_Element_lib
         public static string group;
         public static string name;
         public static List<string> parameters;
+        public static string parametersText;
+        public static int IndexGroup;
 
         //----------Window2------------//
         public static List<DataGrid1_Elements> dataGrid1_Elements = new List<DataGrid1_Elements>();
-       
+
         //----------Window3------------//
-        public static int IndexGroup;
+        public static List<MatrixElements> matrixElements = new List<MatrixElements>();
+        public static string fileName;
     }
 }

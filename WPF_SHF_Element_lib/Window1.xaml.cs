@@ -22,16 +22,15 @@ namespace WPF_SHF_Element_lib
     public partial class Window1 : Window
     {
         //Dictionary<string, string> values = new Dictionary<string, string>();
-        string group, name;
-        string[] parameters;
         string file;
-        string temp_values;
-        
-        public List<string> elements;
+
         public Window1()
         {
             InitializeComponent();
-            if (Data.values_text != null) values_textbox.Text = Data.values_text;
+            if (string.IsNullOrEmpty(Data.values_text) == false) values_textbox.Text = Data.values_text;
+            if (string.IsNullOrEmpty(Data.group) == false) comboBox1.Text = Data.group;
+            if (string.IsNullOrEmpty(Data.name) == false) nameElement.Text = Data.name;
+            if (string.IsNullOrEmpty(Data.parametersText) == false) params_textbox.Text = Data.parametersText;
         }
 
         public void copy_file()
@@ -55,6 +54,7 @@ namespace WPF_SHF_Element_lib
             Data.group = comboBox1.Text;
             Data.name = nameElement.Text;
             Data.parameters = params_textbox.Text.Split(',').ToList();
+            Data.parametersText = params_textbox.Text;
             this.Close();
             Window2 window2 = new Window2();
             window2.Show();
@@ -62,12 +62,7 @@ namespace WPF_SHF_Element_lib
 
         public void dataGrid1_Fill()
         {
-            elements = values_textbox.Text.Split(',').ToList();
-            Data.elements = elements;
-        }
-        public List<string> dataElements()
-        {
-            return elements;
+            Data.elements = values_textbox.Text.Split(',').ToList();
         }
     }
 

@@ -16,6 +16,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Drawing;
 using MathNet.Symbolics;
+using MessageBox = System.Windows.MessageBox;
 
 namespace WPF_SHF_Element_lib
 {
@@ -31,10 +32,6 @@ namespace WPF_SHF_Element_lib
         // Create the MaskedTextBox control.
         DataGridView dataGridView = new DataGridView();
         Dictionary<string, string> values = new Dictionary<string, string>();
-        string group, name;
-        string[] parameters;
-        string file;
-        string temp_values;
         List<MatrixElements> matrixElements= new List<MatrixElements>();
         List<string> GridItems = new List<string>();
 
@@ -47,6 +44,14 @@ namespace WPF_SHF_Element_lib
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
+            Data.matrixElements.Clear();
+            for (int i = 0; i < dataGridView.ColumnCount; i++)
+            {
+                for (int j = 0; j < dataGridView.RowCount; j++)
+                {
+                    Data.matrixElements.Add(new MatrixElements { column = i, element = dataGridView.Rows[j].Cells[i].Value == null ? null : dataGridView.Rows[j].Cells[i].Value.ToString() });
+                }
+            }
             Window2 win = new Window2();
             this.Close();
             win.Show();
@@ -54,16 +59,29 @@ namespace WPF_SHF_Element_lib
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            dataGridView.EndEdit();
+            Data.matrixElements.Clear();
             Element element = new Element();
+            bool f = false;
             for (int i = 0; i < dataGridView.ColumnCount; i++)
             {
-                for (int j = 1; j < dataGridView.RowCount; j++)
+                for (int j = 0; j < dataGridView.RowCount; j++)
                 {
-                    matrixElements.Add(new MatrixElements { column = i, element= dataGridView[j, i].Value == null ? null : dataGridView[j, i].Value.ToString()});
+                    //matrixElements.Add(new MatrixElements { column = i, element= dataGridView[j, i].Value == null ? null : dataGridView[j, i].Value.ToString()});
+                    if (dataGridView.Rows[j].Cells[i].Value == null)
+                    {
+                        f = true;
+                        break;
+                    }
+                    else
+                    Data.matrixElements.Add(new MatrixElements { column = i, element = dataGridView.Rows[j].Cells[i].Value.ToString() });
                 }
+                if(f) break;
             }
-            element.AddNewElement(Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, matrixElements);
+            if (f) MessageBox.Show("Не все данные были введены");
+            else
+            element.AddNewElement(Data.fileName, Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, Data.matrixElements);
+            
         }
     
 
@@ -89,7 +107,17 @@ namespace WPF_SHF_Element_lib
                 dataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
             dataGridView.AllowUserToAddRows= false;
-           
+            int a = 0;
+            for (int i = 0; i < dataGridView.ColumnCount; i++)
+            {
+                for (int j = 0; j < dataGridView.RowCount; j++)
+                {
+                    Data.matrixElements.Add(new MatrixElements { column = i, element = dataGridView.Rows[j].Cells[i].Value == null ? null : dataGridView.Rows[j].Cells[i].Value.ToString() });
+                    if(Data.matrixElements[a].element != null) dataGridView.Rows[j].Cells[i].Value = Data.matrixElements[a].element;
+                    a++;
+                }
+            }
+
         }
     }
 
