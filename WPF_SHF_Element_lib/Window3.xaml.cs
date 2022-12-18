@@ -18,6 +18,9 @@ using System.Drawing;
 using MathNet.Symbolics;
 using MessageBox = System.Windows.MessageBox;
 
+using System.Windows.Interop;
+using Application = System.Windows.Application;
+
 namespace WPF_SHF_Element_lib
 {
     /// <summary>
@@ -80,7 +83,10 @@ namespace WPF_SHF_Element_lib
             }
             if (f) MessageBox.Show("Не все данные были введены");
             else
-            element.AddNewElement(Data.fileName, Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, Data.matrixElements);
+            {
+                element.AddNewElement(Data.fileName, Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, Data.matrixElements);
+                MessageBox.Show("Данные успешно добавлены!");
+            }
             
         }
     
@@ -117,6 +123,19 @@ namespace WPF_SHF_Element_lib
                     a++;
                 }
             }
+
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult res = MessageBox.Show("Вы уверены что хотите выйти?", "Внимание!", MessageBoxButton.YesNo);
+            if (res == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
+            else
+            e.Cancel = true;    
+            
 
         }
     }
