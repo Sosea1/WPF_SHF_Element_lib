@@ -31,6 +31,7 @@ namespace WPF_SHF_Element_lib
             if (string.IsNullOrEmpty(Data.group) == false) comboBox1.Text = Data.group;
             if (string.IsNullOrEmpty(Data.name) == false) nameElement.Text = Data.name;
             if (string.IsNullOrEmpty(Data.parametersText) == false) params_textbox.Text = Data.parametersText;
+            comboBox1.SelectedIndex= 0;
         }
 
         public void copy_file()
@@ -52,7 +53,17 @@ namespace WPF_SHF_Element_lib
                 break;
             }
 
-            Data.IndexGroup = comboBox1.SelectedIndex + 1;
+            Data.group = comboBox1.Text;
+            Data.name = nameElement.Text;
+            Data.parameters = params_textbox.Text.Split(',').ToList();
+            Data.parametersText = params_textbox.Text;
+
+            if (Element.searchName()==true)
+            {
+                MessageBox.Show("Элемент с таким именем уже существует");
+            }
+            else
+            {   Data.IndexGroup = comboBox1.SelectedIndex + 1;
             if (values_textbox.Text != Data.values_text)
             {
                 dataGrid1_Fill();
@@ -63,13 +74,12 @@ namespace WPF_SHF_Element_lib
             {
                 Data.ValuesChanged = false;
             }
-            Data.group = comboBox1.Text;
-            Data.name = nameElement.Text;
-            Data.parameters = params_textbox.Text.Split(',').ToList();
-            Data.parametersText = params_textbox.Text;
+        
             this.Close();
             Window2 window2 = new Window2();
-            window2.Show();
+            window2.Show();}
+
+          
         }
 
         public void dataGrid1_Fill()

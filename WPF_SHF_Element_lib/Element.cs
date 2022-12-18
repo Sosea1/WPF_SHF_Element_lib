@@ -58,5 +58,26 @@ namespace WPF_SHF_Element_lib
                 File.WriteAllText(file_path, jsonData);
             }
         }
+        public static bool searchName()
+        {
+            string file_path = AppDomain.CurrentDomain.BaseDirectory + Data.fileName;
+            if (File.Exists(file_path))
+            {
+                var jsonData = File.ReadAllText(file_path);
+                var elementsList = JsonSerializer.Deserialize<List<Element>>(jsonData) ?? new List<Element>();
+                foreach (Element element in elementsList)
+                {
+                    if (element.name == Data.name) 
+                    {
+                        return true;
+                        
+                    }
+
+                }
+                return false;
+
+            }
+            else { return false; }
+        }
     }
 }

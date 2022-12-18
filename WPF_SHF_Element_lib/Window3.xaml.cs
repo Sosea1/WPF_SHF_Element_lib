@@ -37,6 +37,7 @@ namespace WPF_SHF_Element_lib
         Dictionary<string, string> values = new Dictionary<string, string>();
         List<MatrixElements> matrixElements= new List<MatrixElements>();
         List<string> GridItems = new List<string>();
+        bool exit= false;
 
         public Window3()
         {
@@ -47,6 +48,7 @@ namespace WPF_SHF_Element_lib
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
+            exit = true;    
             Data.matrixElements.Clear();
             for (int i = 0; i < dataGridView.ColumnCount; i++)
             {
@@ -128,14 +130,18 @@ namespace WPF_SHF_Element_lib
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBoxResult res = MessageBox.Show("Вы уверены что хотите выйти?", "Внимание!", MessageBoxButton.YesNo);
-            if (res == MessageBoxResult.Yes)
+            if (exit == false)
             {
-                Application.Current.Shutdown();
+                {
+                    MessageBoxResult res = MessageBox.Show("Вы уверены что хотите выйти?", "Внимание!", MessageBoxButton.YesNo);
+                    if (res == MessageBoxResult.Yes)
+                    {
+                        Application.Current.Shutdown();
+                    }
+                    else
+                        e.Cancel = true;
+                }
             }
-            else
-            e.Cancel = true;    
-            
 
         }
     }
