@@ -19,12 +19,13 @@ namespace WPF_SHF_Element_lib
 
         public Window1()
         {
-            InitializeComponent();
+            InitializeComponent();  
+            comboBox1.SelectedIndex= 0;
             if (string.IsNullOrEmpty(Data.values_text) == false) values_textbox.Text = Data.values_text;
             if (string.IsNullOrEmpty(Data.group) == false) comboBox1.Text = Data.group;
             if (string.IsNullOrEmpty(Data.name) == false) nameElement.Text = Data.name;
             if (string.IsNullOrEmpty(Data.parametersText) == false) params_textbox.Text = Data.parametersText;
-            comboBox1.SelectedIndex= 0;
+          
         }
 
         public void copy_file()
