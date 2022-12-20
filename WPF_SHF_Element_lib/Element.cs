@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace WPF_SHF_Element_lib
 {
     public class Element
     {
+        public string imagePath { get; set; }
         public string group { get; set; }
         public string name { get; set; }
         public string[] parameters { get; set; }
@@ -19,7 +16,7 @@ namespace WPF_SHF_Element_lib
         public List<MatrixElements> matrix { get; set; }
 
 
-        public void AddNewElement(string fileName, string group, string name, string[] parameters, List<DataGrid1_Elements> values, List<MatrixElements> matrix)
+        public void AddNewElement(string fileName, string group, string name, string[] parameters, List<DataGrid1_Elements> values, List<MatrixElements> matrix,string imagePath)
         {
             var options = new JsonSerializerOptions()
             {
@@ -30,15 +27,19 @@ namespace WPF_SHF_Element_lib
             string file_path = AppDomain.CurrentDomain.BaseDirectory+fileName;
             if (!File.Exists(file_path))
             {
-                var elementsList = new List<Element>();
-                elementsList.Add(new Element()
+                var elementsList = new List<Element>
                 {
-                    group = group,
-                    name = name,
-                    parameters = parameters,
-                    other_par = values,
-                    matrix = matrix
-                });
+                    new Element()
+                    {
+                        group = group,
+                        name = name,
+                        parameters = parameters,
+                        other_par = values,
+                        matrix = matrix,
+                        imagePath = imagePath
+                        
+                    }
+                };
                 File.WriteAllText(file_path, JsonSerializer.Serialize(elementsList, options));
             }
             else
@@ -52,7 +53,8 @@ namespace WPF_SHF_Element_lib
                     name = name,
                     parameters = parameters,
                     other_par = values,
-                    matrix = matrix
+                    matrix = matrix,
+                    imagePath = imagePath
                 });
                 jsonData = JsonSerializer.Serialize(elementsList, options);
                 File.WriteAllText(file_path, jsonData);

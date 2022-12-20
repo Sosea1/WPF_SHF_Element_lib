@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using System;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Path = System.IO.Path;
+using MessageBox = System.Windows.MessageBox;
 
 namespace WPF_SHF_Element_lib
 {
@@ -41,6 +34,7 @@ namespace WPF_SHF_Element_lib
             
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            
             switch (comboBox1.SelectedIndex)
             {
                 case 0: Data.fileName = "2pole.json";
@@ -57,27 +51,29 @@ namespace WPF_SHF_Element_lib
             Data.name = nameElement.Text;
             Data.parameters = params_textbox.Text.Split(',').ToList();
             Data.parametersText = params_textbox.Text;
-
-            if (Element.searchName()==true)
+            if (string.IsNullOrEmpty(nameElement.Text) == true)
             {
-                MessageBox.Show("Элемент с таким именем уже существует");
+                MessageBox.Show("Введите имя для элемента");
             }
+            else  if (Element.searchName()==true)
+                MessageBox.Show("Элемент с таким именем уже существует");
             else
             {   Data.IndexGroup = comboBox1.SelectedIndex + 1;
-            if (values_textbox.Text != Data.values_text)
-            {
-                dataGrid1_Fill();
-                Data.values_text = values_textbox.Text;
-                Data.ValuesChanged = true;
-            }
-            else
-            {
-                Data.ValuesChanged = false;
-            }
+                if (values_textbox.Text != Data.values_text)
+                {
+                    dataGrid1_Fill();
+                    Data.values_text = values_textbox.Text;
+                    Data.ValuesChanged = true;
+                }
+                else
+                {
+                    Data.ValuesChanged = false;
+                }
         
-            this.Close();
-            Window2 window2 = new Window2();
-            window2.Show();}
+                this.Close();
+                Window2 window2 = new Window2();
+                window2.Show();
+            }
 
           
         }
@@ -85,6 +81,20 @@ namespace WPF_SHF_Element_lib
         public void dataGrid1_Fill()
         {
             Data.elements = values_textbox.Text.Split(',').ToList();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+           var choose_pic = new OpenFileDialog();
+            choose_pic.Filter = "Images files |*.jpg;*.jpeg;*.png;*.svg;*.ico; | All files | *.*";
+
+            if (choose_pic.ShowDialog() == true)
+            {
+                file = choose_pic.FileName;
+
+                selectedImage.Source = new BitmapImage( new Uri(file));
+                Data.ImagePath = file;
+            }
         }
     }
 

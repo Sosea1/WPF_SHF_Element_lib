@@ -20,6 +20,7 @@ using MessageBox = System.Windows.MessageBox;
 
 using System.Windows.Interop;
 using Application = System.Windows.Application;
+using System.IO;
 
 namespace WPF_SHF_Element_lib
 {
@@ -86,8 +87,44 @@ namespace WPF_SHF_Element_lib
             if (f) MessageBox.Show("Не все данные были введены");
             else
             {
-                element.AddNewElement(Data.fileName, Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, Data.matrixElements);
-                MessageBox.Show("Данные успешно добавлены!");
+               
+                try
+                {
+
+                    if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\ImageElements\") == true)
+                    {
+                        File.Copy(Data.ImagePath, AppDomain.CurrentDomain.BaseDirectory + @"\ImageElements\" + Data.name + ".png");
+                        element.AddNewElement(Data.fileName, Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, Data.matrixElements,Data.ImagePath);
+                    }
+                    else
+                    {
+                        Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"\ImageElements\");
+                        File.Copy(Data.ImagePath, AppDomain.CurrentDomain.BaseDirectory + @"\ImageElements\" + Data.name + ".png");
+                        element.AddNewElement(Data.fileName, Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, Data.matrixElements,Data.ImagePath);
+                    }
+                   
+                    MessageBoxResult addElementMess = MessageBox.Show("Хотите добавить еще 1 элемент?","Данные успешно добавлены!",MessageBoxButton.YesNo);
+                    if (addElementMess == MessageBoxResult.Yes)
+                    {
+                        exit = true;
+                        Data.clearData();
+                        Window1 window1 = new Window1();
+                        this.Close();
+                        window1.Show();
+                    }
+                    else
+                    {
+                        exit = true;
+                        this.Close();
+                    }
+
+                }
+                catch (Exception) 
+                {
+                    MessageBox.Show("Произошла ошибка при добавлении картинки!","Ошибка");
+                }
+                
+                
             }
             
         }
@@ -136,7 +173,7 @@ namespace WPF_SHF_Element_lib
                     MessageBoxResult res = MessageBox.Show("Вы уверены что хотите выйти?", "Внимание!", MessageBoxButton.YesNo);
                     if (res == MessageBoxResult.Yes)
                     {
-                        Application.Current.Shutdown();
+                        Data.clearData();
                     }
                     else
                         e.Cancel = true;

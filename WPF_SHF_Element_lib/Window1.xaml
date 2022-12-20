@@ -27,8 +27,8 @@
         <TextBlock TextAlignment="Right" Grid.Row="3" Text="Параметры:"/>
         <TextBlock TextAlignment="Right" Grid.Row="4"><Run Text="Промежуточные"/><LineBreak/><Run Text=" значения:"/></TextBlock>
 
-        <Border BorderBrush="Gray"  BorderThickness="2" Margin="10,10,10,10" Grid.Column="2" Grid.RowSpan="3" Grid.Row="1">
-            <Image Margin="8" Grid.Column="2" Grid.RowSpan="3" Grid.Row="1"/>
+        <Border BorderBrush="Gray"  BorderThickness="2" Margin="20,10,10,10" Grid.Column="2" Grid.RowSpan="3" Grid.Row="1">
+            <Image x:Name="selectedImage"  Margin="4" Grid.Column="2" Grid.RowSpan="3" Grid.Row="1" Stretch="UniformToFill"/>
         </Border>
         <ComboBox x:Name="comboBox1" Width="260" Height="26" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Margin="0,0,0,20">
             <TextBlock  Text="Двухполюсник"></TextBlock>
@@ -40,7 +40,7 @@
         <TextBox x:Name="nameElement" VerticalAlignment="Top" Width="270" Height="30" Grid.Row="2" Grid.Column="1"></TextBox>
         <TextBox x:Name="params_textbox" VerticalAlignment="Top" Width="270" Height="30" Grid.Row="3" Grid.Column="1"></TextBox>
         <TextBox x:Name="values_textbox" VerticalAlignment="Top" Width="270" Height="30" Grid.Row="4" Grid.Column="1"></TextBox>
-        <Button Grid.Column="2" Content="Выбрать изображение" HorizontalAlignment="Center" Margin="0,5,0,0" Grid.Row="4" VerticalAlignment="Top" Height="23" Width="149"/>
+        <Button Grid.Column="2" Content="Выбрать изображение" HorizontalAlignment="Center" Margin="0,5,0,0" Grid.Row="4" VerticalAlignment="Top" Height="23" Width="149" Click="Button_Click_1"/>
 
         <StatusBar VerticalAlignment="Bottom"  Margin="0,0,0,0" Grid.Row="5" Grid.ColumnSpan="3" Height="50">
             <StatusBarItem HorizontalAlignment="Right">

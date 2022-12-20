@@ -17,11 +17,13 @@ using System.Windows.Controls.Primitives;
 
 namespace WPF_SHF_Element_lib
 {
+
     /// <summary>
     /// Логика взаимодействия для Window2.xaml
     /// </summary>
     public partial class Window2 : Window
     {
+        bool exit = false;
         public Window2()
         {
             InitializeComponent();
@@ -87,6 +89,7 @@ namespace WPF_SHF_Element_lib
             }
             else
             {
+                exit = true;
                 Window3 win = new Window3();
                 this.Close();
                 win.Show();
@@ -102,9 +105,28 @@ namespace WPF_SHF_Element_lib
                 element.formulaColumn = x.Text;
                 i++;
             }
+            exit = true;
             Window1 win = new Window1();
             this.Close();
             win.Show();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (exit == false)
+            {
+                {
+                    MessageBoxResult res = MessageBox.Show("Вы уверены что хотите выйти?", "Внимание!", MessageBoxButton.YesNo);
+                    if (res == MessageBoxResult.Yes)
+                    {
+                        Data.clearData();
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                    }
+                }
+            }
         }
     }
 
