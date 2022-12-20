@@ -113,7 +113,8 @@ namespace WPF_SHF_Element_lib
                         window1.Show();
                     }
                     else
-                    {
+                    {   
+                        Data.clearData();
                         exit = true;
                         this.Close();
                     }
