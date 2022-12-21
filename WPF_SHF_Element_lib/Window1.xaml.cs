@@ -6,6 +6,9 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Path = System.IO.Path;
 using MessageBox = System.Windows.MessageBox;
+using AngouriMath;
+using WpfMath;
+using WpfMath.Controls;
 
 namespace WPF_SHF_Element_lib
 {
@@ -25,6 +28,7 @@ namespace WPF_SHF_Element_lib
             if (string.IsNullOrEmpty(Data.group) == false) comboBox1.Text = Data.group;
             if (string.IsNullOrEmpty(Data.name) == false) nameElement.Text = Data.name;
             if (string.IsNullOrEmpty(Data.parametersText) == false) params_textbox.Text = Data.parametersText;
+          
           
         }
 

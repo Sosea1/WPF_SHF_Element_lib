@@ -1,26 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Xml.Linq;
 using System.Windows.Forms;
-using System.Xml;
-using System.Drawing;
-using MathNet.Symbolics;
 using MessageBox = System.Windows.MessageBox;
-
-using System.Windows.Interop;
-using Application = System.Windows.Application;
 using System.IO;
+using AngouriMath;
+using WpfMath.Controls;
 
 namespace WPF_SHF_Element_lib
 {
@@ -103,7 +89,7 @@ namespace WPF_SHF_Element_lib
                         element.AddNewElement(Data.fileName, Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, Data.matrixElements,Data.ImagePath);
                     }
                    
-                    MessageBoxResult addElementMess = MessageBox.Show("Хотите добавить еще 1 элемент?","Данные успешно добавлены!",MessageBoxButton.YesNo);
+                    MessageBoxResult addElementMess = MessageBox.Show("Данные успешно добавлены!\nХотите добавить еще 1 элемент?", "Внимание!",MessageBoxButton.YesNo);
                     if (addElementMess == MessageBoxResult.Yes)
                     {
                         exit = true;
@@ -133,10 +119,15 @@ namespace WPF_SHF_Element_lib
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            Entity entity = "sqrt(49)+20/2*2^3";
+        
+            latexFormula.Formula = entity.Latexise();
 
             // Assign the MaskedTextBox control as the host control's child.
             host.Child = dataGridView;
+            
+
+
             Grid.SetColumn(host, 1);
             Grid.SetRow(host, 1);
             
@@ -144,7 +135,9 @@ namespace WPF_SHF_Element_lib
             // control's collection of child controls.
             this.grid1.Children.Add(host);
             dataGridView.RowCount = Data.IndexGroup+1;
+            dataGridView.DefaultCellStyle.Font=new System.Drawing.Font("Vardana", 12.5F,System.Drawing.GraphicsUnit.Pixel);
             dataGridView.ColumnCount = Data.IndexGroup;
+            
             dataGridView.BackgroundColor = System.Drawing.Color.White;
             dataGridView.RowHeadersVisible = false;
             dataGridView.ColumnHeadersVisible = false;
