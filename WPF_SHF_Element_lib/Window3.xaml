@@ -8,11 +8,19 @@
         mc:Ignorable="d"
     Title="Добавление элемента" Height="290" Width="515"
         MinHeight="400" MinWidth="760" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+    </Window.Resources>
     <Grid x:Name="grid1">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="51*"/>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -36,5 +44,37 @@
         </StatusBar>
         <Border BorderBrush="Black" BorderThickness="0" Grid.Row="1" Grid.RowSpan="2"/>
         <Controls:FormulaControl Margin="5" x:Name="latexFormula" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+            <Button x:Name="Operators" Content="Операторы" Width="100">
+            </Button>
+            <Button x:Name="Symbols" Content="Символы" Width="100" />
+            <Button x:Name="Constants" Content="Константы" Width="100"/>
+            <Popup x:Name="OperatorPopup" StaysOpen="True" IsOpen="{Binding Mode=OneWay, ElementName=Operators, Path=IsFocused}" PlacementTarget="{Binding ElementName=Operators}" >
+                <WrapPanel Width="200"  ItemHeight="40" ItemWidth="50" AutomationProperties.ItemType="" PreviewMouseDown="WrapPanel_PreviewMouseDown" >
+                    <Button Content="+"/>
+                    <Button Content="-"/>
+                    <Button Content="∙"/>
+                    <Button Content="%"/>
+                    <Button Content="/"/>
+                    <Button Content="√x"/>
+                    <Button Content="xⁿ"/>
+                    <Button Content="|x|"/>
+                    <Button Content="x!"/>
+                    <Button Content="()"/>
+                    <Button Content="sin(x)"/>
+                    <Button Content="cos(x)"/>
+                    <Button Content="tg(x)"/>
+                    <Button Content="ctg(x)"/>
+                    <Button Content="˚"/>
+                </WrapPanel>
+            </Popup>
+            <Popup x:Name="SymbolsPopup" StaysOpen="True" IsOpen="{Binding Mode=OneWay, ElementName=Symbols, Path=IsFocused}" PlacementTarget="{Binding ElementName=Symbols}" >
+                <WrapPanel Width="200"  ItemHeight="40" ItemWidth="50" AutomationProperties.ItemType="" PreviewMouseDown="WrapPanel_PreviewMouseDown" >
+                    <TextBlock Width="200" Text="Прописная буква греческого алфавита" Focusable="False"/>
+                    <Button Content="()"/>
+                </WrapPanel>
+            </Popup>
+        </StackPanel>
+
     </Grid>
 </Window>

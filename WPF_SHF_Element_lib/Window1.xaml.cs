@@ -79,6 +79,7 @@ namespace WPF_SHF_Element_lib
                 Window2 window2 = new Window2();
                 window2.Show();
             }
+            if (string.IsNullOrEmpty(Data.ImagePath)) { Data.ImagePath = null; }
 
           
         }

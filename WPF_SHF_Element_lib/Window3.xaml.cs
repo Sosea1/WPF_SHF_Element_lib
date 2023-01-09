@@ -7,6 +7,7 @@ using MessageBox = System.Windows.MessageBox;
 using System.IO;
 using AngouriMath;
 using WpfMath.Controls;
+using AngouriMath.Extensions;
 
 namespace WPF_SHF_Element_lib
 {
@@ -25,12 +26,17 @@ namespace WPF_SHF_Element_lib
         List<MatrixElements> matrixElements= new List<MatrixElements>();
         List<string> GridItems = new List<string>();
         bool exit= false;
+        bool keyHandler = false;
+        string tempCellValue;
+        Entity formulaRaw;
 
         public Window3()
         {
             InitializeComponent();
-         //   grid.ItemsSource= GridItems;
-            
+            //   grid.ItemsSource= GridItems;
+          
+
+
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
@@ -79,14 +85,22 @@ namespace WPF_SHF_Element_lib
 
                     if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\ImageElements\") == true)
                     {
-                        File.Copy(Data.ImagePath, AppDomain.CurrentDomain.BaseDirectory + @"\ImageElements\" + Data.name + ".png");
-                        element.AddNewElement(Data.fileName, Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, Data.matrixElements,Data.ImagePath);
+                        if (Data.ImagePath == null)
+                        {
+                            element.AddNewElement(Data.fileName, Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, Data.matrixElements, Data.ImagePath);
+                        }
+                        else
+                        {
+                            element.AddNewElement(Data.fileName, Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, Data.matrixElements, Data.ImagePath);
+                            File.Copy(Data.ImagePath, AppDomain.CurrentDomain.BaseDirectory + @"\ImageElements\" + Data.name + ".png");
+                        }
+
                     }
                     else
                     {
                         Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"\ImageElements\");
                         File.Copy(Data.ImagePath, AppDomain.CurrentDomain.BaseDirectory + @"\ImageElements\" + Data.name + ".png");
-                        element.AddNewElement(Data.fileName, Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, Data.matrixElements,Data.ImagePath);
+                        element.AddNewElement(Data.fileName, Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, Data.matrixElements, Data.ImagePath);
                     }
                    
                     MessageBoxResult addElementMess = MessageBox.Show("Данные успешно добавлены!\nХотите добавить еще 1 элемент?", "Внимание!",MessageBoxButton.YesNo);
@@ -106,9 +120,9 @@ namespace WPF_SHF_Element_lib
                     }
 
                 }
-                catch (Exception) 
+                catch (Exception q) 
                 {
-                    MessageBox.Show("Произошла ошибка при добавлении картинки!","Ошибка");
+                    MessageBox.Show(q.Message);
                 }
                 
                 
@@ -119,13 +133,25 @@ namespace WPF_SHF_Element_lib
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Entity entity = "sqrt(49)+20/2*2^3";
-        
-            latexFormula.Formula = entity.Latexise();
+            
+            
+           // это латекс парсер и отображение
+          
+
+
+
+
 
             // Assign the MaskedTextBox control as the host control's child.
             host.Child = dataGridView;
+            //dataGridView.EditingControlShowing += DataGridView_EditingControlShowing;
+         
+            //dataGridView.CellBeginEdit += DataGridView_CellBeginEdit;
+            //dataGridView.CellEndEdit += DataGridView_CellEndEdit;
             
+
+
+
 
 
             Grid.SetColumn(host, 1);
@@ -159,6 +185,51 @@ namespace WPF_SHF_Element_lib
 
         }
 
+        private void DataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {   
+            if (dataGridView.CurrentCell.Value != null)
+                tempCellValue = dataGridView.CurrentCell.Value.ToString();
+            DataGridViewTextBoxEditingControl tb = (DataGridViewTextBoxEditingControl)e.Control;
+            tb.KeyPress += new KeyPressEventHandler(dataGridViewTextBox_KeyPress);
+            
+        
+        }
+        private void dataGridViewTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+                tempCellValue = dataGridView.CurrentCell.EditedFormattedValue.ToString();
+
+            if (string.IsNullOrEmpty(tempCellValue) == true)
+            {
+
+            }
+            else
+            {
+             
+             latexFormula.Formula = tempCellValue.Latexise();
+            }
+               
+        
+        }
+
+       
+
+        private void DataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            keyHandler = false;
+           
+        }
+
+        private void DataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            keyHandler = true;
+           
+         
+        }
+
+      
+
+    
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (exit == false)
@@ -173,6 +244,11 @@ namespace WPF_SHF_Element_lib
                         e.Cancel = true;
                 }
             }
+
+        }
+
+        private void WrapPanel_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
 
         }
     }
