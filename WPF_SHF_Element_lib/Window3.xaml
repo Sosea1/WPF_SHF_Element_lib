@@ -43,18 +43,16 @@
 
         </StatusBar>
         <Border BorderBrush="Black" BorderThickness="0" Grid.Row="1" Grid.RowSpan="2"/>
-        <Controls:FormulaControl Margin="5" x:Name="latexFormula" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
             <Button x:Name="Operators" Content="Операторы" Width="100">
             </Button>
             <Button x:Name="Symbols" Content="Символы" Width="100" />
             <Button x:Name="Constants" Content="Константы" Width="100"/>
             <Popup x:Name="OperatorPopup" StaysOpen="True" IsOpen="{Binding Mode=OneWay, ElementName=Operators, Path=IsFocused}" PlacementTarget="{Binding ElementName=Operators}" >
-                <WrapPanel Width="200"  ItemHeight="40" ItemWidth="50" AutomationProperties.ItemType="" PreviewMouseDown="WrapPanel_PreviewMouseDown" >
+                <WrapPanel x:Name="wrapOperators" Width="200"  ItemHeight="40" ItemWidth="50" AutomationProperties.ItemType="" PreviewMouseDown="WrapPanel_PreviewMouseDown" >
                     <Button Content="+"/>
                     <Button Content="-"/>
                     <Button Content="∙"/>
-                    <Button Content="%"/>
                     <Button Content="/"/>
                     <Button Content="√x"/>
                     <Button Content="xⁿ"/>

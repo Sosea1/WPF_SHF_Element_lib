@@ -5,9 +5,11 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using MessageBox = System.Windows.MessageBox;
 using System.IO;
-using AngouriMath;
-using WpfMath.Controls;
 using AngouriMath.Extensions;
+using WpfMath.Controls;
+using AngouriMath;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace WPF_SHF_Element_lib
 {
@@ -29,6 +31,7 @@ namespace WPF_SHF_Element_lib
         bool keyHandler = false;
         string tempCellValue;
         Entity formulaRaw;
+        int rowIndex, columnIndex;
 
         public Window3()
         {
@@ -133,27 +136,16 @@ namespace WPF_SHF_Element_lib
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
-            
-           // это латекс парсер и отображение
-          
+            //dataGridView.EditingControlShowing += DataGridView_EditingControlShowing;
+            //dataGridView.CellBeginEdit += DataGridView_CellBeginEdit;
+            //dataGridView.CellEndEdit += DataGridView_CellEndEdit;
 
-
-
-
+            // это латекс парсер и отображение
 
             // Assign the MaskedTextBox control as the host control's child.
             host.Child = dataGridView;
-            //dataGridView.EditingControlShowing += DataGridView_EditingControlShowing;
-         
-            //dataGridView.CellBeginEdit += DataGridView_CellBeginEdit;
-            //dataGridView.CellEndEdit += DataGridView_CellEndEdit;
             
-
-
-
-
-
+            
             Grid.SetColumn(host, 1);
             Grid.SetRow(host, 1);
             
@@ -182,7 +174,14 @@ namespace WPF_SHF_Element_lib
                     a++;
                 }
             }
+            dataGridView.CellMouseClick += DataGridView_CellMouseClick;
 
+        }
+
+        private void DataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            rowIndex = dataGridView.CurrentCell.RowIndex;
+            columnIndex = dataGridView.CurrentCell.ColumnIndex;
         }
 
         private void DataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -206,7 +205,7 @@ namespace WPF_SHF_Element_lib
             else
             {
              
-             latexFormula.Formula = tempCellValue.Latexise();
+             //latexFormula.Formula = tempCellValue.Latexise();
             }
                
         
@@ -247,9 +246,35 @@ namespace WPF_SHF_Element_lib
 
         }
 
+        private Dictionary<string, string> operators = new Dictionary<string, string>()
+        {
+            {"+","+"},
+            {"-","-"},
+            {"∙","*"},
+            {"/","/"},
+            {"√x","sqrt()"},
+            {"xⁿ","^()"},
+            {"|x|","||"},
+            {"x!","x!"},
+            {"()","()"},
+            {"sin(x)","sin()"},
+            {"cos(x)","cos()"},
+            {"tg(x)","tg()"},
+            {"ctg(x)","ctg()"},
+            {"˚","˚"},
+        };
+
         private void WrapPanel_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            Point pt = e.GetPosition(wrapOperators);
+            HitTestResult result = VisualTreeHelper.HitTest(wrapOperators, pt);
+            FrameworkElement frame = (FrameworkElement)result.VisualHit;
+            MessageBox.Show(frame.Parent.ToString());
+            if (result != null)
+            {
+                
+               //operators.TryGetValue(result.ToString(), out string value);
+            }
         }
     }
 
