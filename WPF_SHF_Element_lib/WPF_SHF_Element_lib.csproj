@@ -103,9 +103,6 @@
   <ItemGroup>
     <Compile Include="Data.cs" />
     <Compile Include="Element.cs" />
-    <Compile Include="SMatrix.xaml.cs">
-      <DependentUpon>SMatrix.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
