@@ -268,12 +268,14 @@ namespace WPF_SHF_Element_lib
         {
             Point pt = e.GetPosition(wrapOperators);
             HitTestResult result = VisualTreeHelper.HitTest(wrapOperators, pt);
-            FrameworkElement frame = (FrameworkElement)result.VisualHit;
-            MessageBox.Show(frame.Parent.ToString());
-            if (result != null)
+            System.Windows.Controls.Button button = Data.FindParent<System.Windows.Controls.Button>(result.VisualHit);
+            if (button != null)
             {
-                
-               //operators.TryGetValue(result.ToString(), out string value);
+               if(operators.TryGetValue(button.Content.ToString(), out string value))
+                {
+                    MessageBox.Show(value);
+                    dataGridView.Rows[rowIndex].Cells[columnIndex].Value = "231";
+                }
             }
         }
     }
@@ -283,6 +285,4 @@ namespace WPF_SHF_Element_lib
         public int column { get; set; }
         public string element { get; set; }
     }
-
-
 }
