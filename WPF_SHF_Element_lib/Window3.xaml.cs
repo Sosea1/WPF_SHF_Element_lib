@@ -5,10 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using MessageBox = System.Windows.MessageBox;
 using System.IO;
-using AngouriMath.Extensions;
-using WpfMath.Controls;
 using AngouriMath;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace WPF_SHF_Element_lib
@@ -60,7 +57,11 @@ namespace WPF_SHF_Element_lib
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
             dataGridView.EndEdit();
+            Entity expr = dataGridView.Rows[rowIndex].Cells[columnIndex].Value.ToString();
+
+            MessageBox.Show(expr.EvalNumerical().ToString());
             Data.matrixElements.Clear();
             Element element = new Element();
             bool f = false;
@@ -127,8 +128,6 @@ namespace WPF_SHF_Element_lib
                 {
                     MessageBox.Show(q.Message);
                 }
-                
-                
             }
             
         }
@@ -207,28 +206,18 @@ namespace WPF_SHF_Element_lib
              
              //latexFormula.Formula = tempCellValue.Latexise();
             }
-               
-        
         }
-
-       
 
         private void DataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             keyHandler = false;
-           
         }
 
         private void DataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             keyHandler = true;
-           
-         
         }
 
-      
-
-    
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             if (exit == false)
@@ -259,8 +248,8 @@ namespace WPF_SHF_Element_lib
             {"()","()"},
             {"sin(x)","sin()"},
             {"cos(x)","cos()"},
-            {"tg(x)","tg()"},
-            {"ctg(x)","ctg()"},
+            {"tan(x)","tan()"},
+            {"cot(x)","cot()"},
             {"˚","˚"},
         };
 
@@ -273,8 +262,8 @@ namespace WPF_SHF_Element_lib
             {
                if(operators.TryGetValue(button.Content.ToString(), out string value))
                 {
-                    MessageBox.Show(value);
-                    dataGridView.Rows[rowIndex].Cells[columnIndex].Value = value;
+                    dataGridView.EndEdit();
+                    dataGridView.Rows[rowIndex].Cells[columnIndex].Value += value;
                 }
             }
         }

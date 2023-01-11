@@ -61,8 +61,8 @@
                     <Button Content="()"/>
                     <Button Content="sin(x)"/>
                     <Button Content="cos(x)"/>
-                    <Button Content="tg(x)"/>
-                    <Button Content="ctg(x)"/>
+                    <Button Content="tan(x)"/>
+                    <Button Content="cot(x)"/>
                     <Button Content="˚"/>
                 </WrapPanel>
             </Popup>
