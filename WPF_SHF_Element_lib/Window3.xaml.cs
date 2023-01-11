@@ -274,7 +274,7 @@ namespace WPF_SHF_Element_lib
                if(operators.TryGetValue(button.Content.ToString(), out string value))
                 {
                     MessageBox.Show(value);
-                    dataGridView.Rows[rowIndex].Cells[columnIndex].Value = "231";
+                    dataGridView.Rows[rowIndex].Cells[columnIndex].Value = value;
                 }
             }
         }
