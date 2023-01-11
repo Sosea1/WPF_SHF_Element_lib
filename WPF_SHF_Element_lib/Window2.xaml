@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF_SHF_Element_lib" xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
            Title="Добавление элемента" Height="290" Width="515"
-        MinHeight="400" MinWidth="760" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+        MinHeight="400" MinWidth="760" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" Closing="Window_Closing" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>

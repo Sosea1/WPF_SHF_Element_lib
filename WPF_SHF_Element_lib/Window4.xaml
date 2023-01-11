@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_SHF_Element_lib"
         mc:Ignorable="d"
-        Title="Window4" Height="450" Width="590">
+        Title="Window4" Height="450" Width="590" ResizeMode="NoResize">
     <Grid >
         <ComboBox Name="comboBox1" HorizontalAlignment="Left" Margin="30,32,0,0" VerticalAlignment="Top" Width="280" SelectedIndex="0" Height="27" SelectionChanged="ComboBox_SelectionChanged">
 
@@ -19,7 +19,8 @@
 
 
         </ListView>
-        <Button Content="Удалить" HorizontalAlignment="Left" Margin="275,399,0,0" VerticalAlignment="Top"/>
+        <Button Content="Удалить" HorizontalAlignment="Left" Margin="220,399,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+        <Button Content="Отмена" HorizontalAlignment="Left" Margin="54,399,0,0" VerticalAlignment="Top" Click="Button_Click"/>
 
     </Grid>
 </Window>
