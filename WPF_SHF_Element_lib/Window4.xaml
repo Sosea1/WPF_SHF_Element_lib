@@ -7,7 +7,12 @@
         mc:Ignorable="d"
         Title="Window4" Height="450" Width="590" ResizeMode="NoResize">
     <Grid >
-        <ComboBox Name="comboBox1" HorizontalAlignment="Left" Margin="30,32,0,0" VerticalAlignment="Top" Width="280" SelectedIndex="0" Height="27" SelectionChanged="ComboBox_SelectionChanged">
+        
+        <ListView x:Name="listView" Margin="25,84,285,45">
+        </ListView>
+        <Button Content="Удалить" HorizontalAlignment="Left" Margin="220,399,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+        <Button Content="Отмена" HorizontalAlignment="Left" Margin="54,399,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <ComboBox Name="comboBox1" HorizontalAlignment="Left" Margin="30,32,0,0" VerticalAlignment="Top" Width="280" SelectedIndex="0" Height="27" SelectionChanged="ComboBox_SelectionChanged"  >
 
             <TextBlock  Text="Двухполюсник"></TextBlock>
             <TextBlock Text="Четырехполюсник"></TextBlock>
@@ -15,12 +20,5 @@
             <TextBlock Text="Восьмиполюсник"></TextBlock>
 
         </ComboBox>
-        <ListView x:Name="listView" Margin="25,84,285,45" SelectionChanged="listView_SelectionChanged">
-
-
-        </ListView>
-        <Button Content="Удалить" HorizontalAlignment="Left" Margin="220,399,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
-        <Button Content="Отмена" HorizontalAlignment="Left" Margin="54,399,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-
     </Grid>
 </Window>

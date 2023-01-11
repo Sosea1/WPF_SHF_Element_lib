@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 
 namespace WPF_SHF_Element_lib
@@ -25,12 +27,11 @@ namespace WPF_SHF_Element_lib
     public partial class Window4 : System.Windows.Window
     {   
         List<string> nameElements = new List<string>();
+        List<Element> elementsList = new List<Element>();
+        string filePath;
         public Window4()
         {
-            
             InitializeComponent();
-            pole();
-            
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -40,6 +41,7 @@ namespace WPF_SHF_Element_lib
 
         public void pole()
         {
+            nameElements.Clear();
             switch (comboBox1.SelectedIndex)
             {
                 case 0:
@@ -55,26 +57,17 @@ namespace WPF_SHF_Element_lib
                     Data.fileName = "8pole.json";
                     break;
             }
-            string filePath = AppDomain.CurrentDomain.BaseDirectory + Data.fileName;
+            filePath = AppDomain.CurrentDomain.BaseDirectory + Data.fileName;
             if (File.Exists(filePath))
             {
                 var jsonString = File.ReadAllText(filePath);
-                var elementsList = JsonSerializer.Deserialize<List<Element>>(jsonString);
+                elementsList = JsonSerializer.Deserialize<List<Element>>(jsonString);
                 foreach (Element element in elementsList)
                 {
                     nameElements.Add(element.name);
-
                 }
-
+                listView.ItemsSource = null;
                 listView.ItemsSource = nameElements;
-            }
-        }
-
-        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (listView.SelectedItem != null)
-            {
-                
             }
         }
 
@@ -85,7 +78,17 @@ namespace WPF_SHF_Element_lib
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
+            var options = new JsonSerializerOptions()
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                AllowTrailingCommas = true,
+                WriteIndented = true
+            };
+            if (listView.SelectedItem!=null)
+            {
+                elementsList.Remove(elementsList.Find(x=>x.name == listView.SelectedItem.ToString()));
+            }
+            File.WriteAllText(filePath, JsonSerializer.Serialize(elementsList, options));
         }
     }
 
