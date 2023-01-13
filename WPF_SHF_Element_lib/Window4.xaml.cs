@@ -89,6 +89,7 @@ namespace WPF_SHF_Element_lib
                 elementsList.Remove(elementsList.Find(x=>x.name == listView.SelectedItem.ToString()));
             }
             File.WriteAllText(filePath, JsonSerializer.Serialize(elementsList, options));
+            pole();
         }
     }
 

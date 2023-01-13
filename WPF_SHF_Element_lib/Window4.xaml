@@ -5,10 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_SHF_Element_lib"
         mc:Ignorable="d"
-        Title="Window4" Height="450" Width="590" ResizeMode="NoResize">
-    <Grid >
-        
-        <ListView x:Name="listView" Margin="25,84,285,45">
+        Title="Удаление элемента" Height="470" Width="590" ResizeMode="NoResize">
+    <Grid Margin="0,0,0,-11" >
+
+        <ListView x:Name="listView" Margin="25,84,285,77" RenderTransformOrigin="0.5,0.5">
+            <ListView.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0.174"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.442"/>
+                </TransformGroup>
+            </ListView.RenderTransform>
         </ListView>
         <Button Content="Удалить" HorizontalAlignment="Left" Margin="220,399,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
         <Button Content="Отмена" HorizontalAlignment="Left" Margin="54,399,0,0" VerticalAlignment="Top" Click="Button_Click"/>

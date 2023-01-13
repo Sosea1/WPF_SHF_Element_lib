@@ -30,7 +30,7 @@
         <TextBlock TextAlignment="Right" Grid.Row="4"><Run Text="Промежуточные"/><LineBreak/><Run Text=" значения:"/></TextBlock>
 
         <Border BorderBrush="Gray"  BorderThickness="2" Margin="20,10,10,10" Grid.Column="2" Grid.RowSpan="3" Grid.Row="1">
-            <Image x:Name="selectedImage"  Margin="4" Grid.Column="2" Grid.RowSpan="3" Grid.Row="1" Stretch="UniformToFill"/>
+            <Image x:Name="selectedImage"  Margin="4" Grid.Column="2" Grid.RowSpan="3" Grid.Row="1"/>
         </Border>
         <ComboBox x:Name="comboBox1" Width="260" Height="26" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Margin="0,0,0,20">
             <TextBlock  Text="Двухполюсник"></TextBlock>
