@@ -87,11 +87,11 @@ namespace WPF_SHF_Element_lib
                     {
                         if (Data.ImagePath == null)
                         {
-                            element.AddNewElement(Data.fileName, Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, Data.matrixElements, Data.ImagePath);
+                            element.AddNewElement(Data.fileName, Data.group, Data.name, Data.dataGrid1_Parameters, Data.dataGrid1_Elements, Data.matrixElements, Data.ImagePath);
                         }
                         else
                         {
-                            element.AddNewElement(Data.fileName, Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, Data.matrixElements, Data.ImagePath);
+                            element.AddNewElement(Data.fileName, Data.group, Data.name, Data.dataGrid1_Parameters, Data.dataGrid1_Elements, Data.matrixElements, Data.ImagePath);
                             File.Copy(Data.ImagePath, AppDomain.CurrentDomain.BaseDirectory + @"\ImageElements\" + Data.name + ".png");
                         }
 
@@ -100,7 +100,7 @@ namespace WPF_SHF_Element_lib
                     {
                         Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"\ImageElements\");
                         File.Copy(Data.ImagePath, AppDomain.CurrentDomain.BaseDirectory + @"\ImageElements\" + Data.name + ".png");
-                        element.AddNewElement(Data.fileName, Data.group, Data.name, Data.parameters.ToArray(), Data.dataGrid1_Elements, Data.matrixElements, Data.ImagePath);
+                        element.AddNewElement(Data.fileName, Data.group, Data.name, Data.dataGrid1_Parameters, Data.dataGrid1_Elements, Data.matrixElements, Data.ImagePath);
                     }
                    
                     MessageBoxResult addElementMess = MessageBox.Show("Данные успешно добавлены!\nХотите добавить еще 1 элемент?", "Внимание!",MessageBoxButton.YesNo);

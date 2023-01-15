@@ -11,12 +11,12 @@ namespace WPF_SHF_Element_lib
         public string imagePath { get; set; }
         public string group { get; set; }
         public string name { get; set; }
-        public string[] parameters { get; set; }
+        public List<DataGrid1_Parameters> parameters { get; set; }
         public List<DataGrid1_Elements> other_par { get; set; }
         public List<MatrixElements> matrix { get; set; }
 
 
-        public void AddNewElement(string fileName, string group, string name, string[] parameters, List<DataGrid1_Elements> values, List<MatrixElements> matrix,string imagePath)
+        public void AddNewElement(string fileName, string group, string name, List<DataGrid1_Parameters> parameters, List<DataGrid1_Elements> values, List<MatrixElements> matrix,string imagePath)
         {
             var options = new JsonSerializerOptions()
             {
@@ -60,6 +60,7 @@ namespace WPF_SHF_Element_lib
                 File.WriteAllText(file_path, jsonData);
             }
         }
+
         public static bool searchName()
         {
             string file_path = AppDomain.CurrentDomain.BaseDirectory + Data.fileName;

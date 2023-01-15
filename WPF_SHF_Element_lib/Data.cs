@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace WPF_SHF_Element_lib
@@ -13,9 +9,11 @@ namespace WPF_SHF_Element_lib
     {
         //----------Window1------------//
         public static string values_text;
+        
         public static List<string> elements = new List<string>();
-        public static List<string> temp_elements = new List<string>();
+      
         public static bool ValuesChanged = false;
+        public static bool ParamsChanged = false;
         public static string group;
         public static string name;
         public static List<string> parameters = new List<string>();
@@ -25,6 +23,7 @@ namespace WPF_SHF_Element_lib
 
         //----------Window2------------//
         public static List<DataGrid1_Elements> dataGrid1_Elements = new List<DataGrid1_Elements>();
+        public static List<DataGrid1_Parameters> dataGrid1_Parameters = new List<DataGrid1_Parameters>();
 
         //----------Window3------------//
         public static List<MatrixElements> matrixElements = new List<MatrixElements>();
@@ -33,8 +32,9 @@ namespace WPF_SHF_Element_lib
         {
            values_text = null;
             elements = new List<string>();
-            temp_elements = new List<string>();
+           dataGrid1_Parameters = new List<DataGrid1_Parameters>();
             ValuesChanged = false;
+            ParamsChanged= false;
             group = null;
             name = null;
             parameters = new List<string>();

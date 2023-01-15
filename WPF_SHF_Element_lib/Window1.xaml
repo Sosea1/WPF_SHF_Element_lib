@@ -8,8 +8,8 @@
     
         mc:Ignorable="d"
    Title="Добавление элемента" Height="290" Width="515"
-        MinHeight="400" MinWidth="760" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
-    <Grid>
+        MinHeight="400" MinWidth="760" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Background="White">
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>

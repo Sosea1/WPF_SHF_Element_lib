@@ -29,7 +29,7 @@ namespace WPF_SHF_Element_lib
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            
             bool f = false;
             if(Data.ValuesChanged == true)
             {
@@ -45,7 +45,7 @@ namespace WPF_SHF_Element_lib
                         Console.WriteLine(element);
                         Data.dataGrid1_Elements.Add(new DataGrid1_Elements { headerColumn = element });
                     }
-                    Data.temp_elements = Data.elements;
+                  
                     Data.ValuesChanged = false;
                 }
             }
@@ -53,7 +53,37 @@ namespace WPF_SHF_Element_lib
             grid.ItemsSource = Data.dataGrid1_Elements;
 
 
+
+            f = false;
+            if (Data.ParamsChanged == true)
+            {
+                Data.dataGrid1_Parameters.Clear();
+                if (string.IsNullOrEmpty(Data.parametersText) == true)
+                {
+                    f = true;
+                }
+                else
+                {
+                    foreach (string parameter in Data.parameters)
+                    {
+                        Console.WriteLine(parameter);
+                        Data.dataGrid1_Parameters.Add(new DataGrid1_Parameters { paramColumn = parameter });
+                    }
+                 
+                    Data.ParamsChanged = false;
+                }
+            }
+            if (!f)
+                grid1.ItemsSource = Data.dataGrid1_Parameters;
         }
+    
+
+
+
+
+
+
+
 
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
@@ -69,6 +99,18 @@ namespace WPF_SHF_Element_lib
                     break;
                 }
                 element.formulaColumn = x.Text;
+                i++;
+            }
+            i = 0;
+            foreach (DataGrid1_Parameters element in Data.dataGrid1_Parameters)
+            {
+                var x = grid1.Columns[1].GetCellContent(grid1.Items[i]) as TextBlock;
+                if (string.IsNullOrEmpty(x.Text))
+                {
+                    f = true;
+                    break;
+                }
+                element.unitColumn = x.Text;
                 i++;
             }
             if (f)
@@ -87,12 +129,39 @@ namespace WPF_SHF_Element_lib
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             int i = 0;
+            
             foreach (DataGrid1_Elements element in Data.dataGrid1_Elements)
             {
+
                 var x = grid.Columns[1].GetCellContent(grid.Items[i]) as TextBlock;
-                element.formulaColumn = x.Text;
+                if (string.IsNullOrEmpty(x.Text))
+                {
+                    element.formulaColumn = "";
+                }
+                else
+                {
+                    element.formulaColumn = x.Text;
+                }
+                
                 i++;
             }
+            i = 0;
+            foreach (DataGrid1_Parameters element in Data.dataGrid1_Parameters)
+            {
+
+                var x = grid1.Columns[1].GetCellContent(grid1.Items[i]) as TextBlock;
+                if (string.IsNullOrEmpty(x.Text))
+                {
+                    element.unitColumn = "";
+                }
+                else
+                {
+                    element.unitColumn = x.Text;
+                }
+
+                i++;
+            }
+
             exit = true;
             Window1 win = new Window1();
             this.Close();
@@ -122,5 +191,10 @@ namespace WPF_SHF_Element_lib
     {
         public string headerColumn { get; set; } 
         public string formulaColumn { get; set;}
+    }
+    public class DataGrid1_Parameters
+    {
+        public string paramColumn { get; set; }
+        public string unitColumn { get; set; }
     }
 }

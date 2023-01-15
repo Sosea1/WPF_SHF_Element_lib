@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPF_SHF_Element_lib"
         mc:Ignorable="d"
         Title="Удаление элемента" Height="470" Width="590" ResizeMode="CanMinimize">
-    <Grid Margin="0,0,0,-11" >
+    <Grid Background="White" Margin="0,0,0,-11" >
 
         <ListView x:Name="listView" Margin="25,84,285,77" RenderTransformOrigin="0.5,0.5">
             <ListView.RenderTransform>

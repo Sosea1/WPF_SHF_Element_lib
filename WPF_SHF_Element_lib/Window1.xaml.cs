@@ -54,8 +54,7 @@ namespace WPF_SHF_Element_lib
 
             Data.group = comboBox1.Text;
             Data.name = nameElement.Text;
-            Data.parameters = params_textbox.Text.Split(',').ToList();
-            Data.parametersText = params_textbox.Text;
+            
             if (string.IsNullOrEmpty(nameElement.Text) == true)
             {
                 MessageBox.Show("Введите имя для элемента");
@@ -74,10 +73,21 @@ namespace WPF_SHF_Element_lib
                 {
                     Data.ValuesChanged = false;
                 }
-        
+                if (params_textbox.Text != Data.parametersText)
+                {
+                    Data.parameters = params_textbox.Text.Split(',').ToList();
+                    Data.parametersText = params_textbox.Text;
+                    Data.ParamsChanged = true;
+                }
+                else
+                {
+                    Data.ParamsChanged = false;
+                }
+
                 this.Close();
                 Window2 window2 = new Window2();
                 window2.Show();
+               
             }
             if (string.IsNullOrEmpty(Data.ImagePath)) { Data.ImagePath = null; }
 
@@ -87,6 +97,7 @@ namespace WPF_SHF_Element_lib
         public void dataGrid1_Fill()
         {
             Data.elements = values_textbox.Text.Split(',').ToList();
+
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
