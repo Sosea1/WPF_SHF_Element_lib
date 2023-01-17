@@ -41,6 +41,7 @@ namespace WPF_SHF_Element_lib
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
+            dataGridView.EndEdit();
             exit = true;    
             Data.matrixElements.Clear();
             for (int i = 0; i < dataGridView.ColumnCount; i++)
@@ -134,6 +135,7 @@ namespace WPF_SHF_Element_lib
             //dataGridView.EditingControlShowing += DataGridView_EditingControlShowing;
             //dataGridView.CellBeginEdit += DataGridView_CellBeginEdit;
             //dataGridView.CellEndEdit += DataGridView_CellEndEdit;
+            dataGridView.CellMouseClick += DataGridView_CellMouseClick;
 
             // это латекс парсер и отображение
 
@@ -169,7 +171,7 @@ namespace WPF_SHF_Element_lib
                     a++;
                 }
             }
-            dataGridView.CellMouseClick += DataGridView_CellMouseClick;
+            dataGridView.ClearSelection();
 
         }
 
@@ -177,6 +179,7 @@ namespace WPF_SHF_Element_lib
         {
             rowIndex = dataGridView.CurrentCell.RowIndex;
             columnIndex = dataGridView.CurrentCell.ColumnIndex;
+            dataGridView.BeginEdit(false);
         }
 
         private void DataGridView_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -211,7 +214,7 @@ namespace WPF_SHF_Element_lib
 
         private void DataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            keyHandler = true;
+            dataGridView.BeginEdit(false);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -260,6 +263,7 @@ namespace WPF_SHF_Element_lib
                 {
                     dataGridView.EndEdit();
                     dataGridView.Rows[rowIndex].Cells[columnIndex].Value += value;
+                    dataGridView.BeginEdit(false);
                 }
             }
         }
