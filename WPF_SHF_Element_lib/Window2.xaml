@@ -7,7 +7,7 @@
         mc:Ignorable="d"
            Title="Добавление элемента" Height="290" Width="515"
         MinHeight="400" MinWidth="760" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" Closing="Window_Closing" ResizeMode="CanMinimize" Background="White">
-    <Grid Background="White">
+    <Grid x:Name="win3" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -19,21 +19,14 @@
             <ColumnDefinition Width="58*"></ColumnDefinition>
             <ColumnDefinition Width="55*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-
-
-
-        <DataGrid Grid.Row="1"  Grid.ColumnSpan="3" x:Name="grid" AutoGenerateColumns="False" CanUserAddRows="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn x:Name="HeaderColumn" Binding="{Binding headerColumn}" Width="80" IsReadOnly="True" ></DataGridTextColumn>
-                <DataGridTextColumn x:Name="FormulaColumn" Header="Формула" Width="*" Binding="{Binding formulaColumn}"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
         <DataGrid Grid.Row="0"  Grid.ColumnSpan="3" x:Name="grid1" AutoGenerateColumns="False" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="ParamColumn" Binding="{Binding paramColumn}" Width="80" IsReadOnly="True" ></DataGridTextColumn>
                 <DataGridTextColumn x:Name="UnitColumn" Header="Единица измерения" Width="*" Binding="{Binding unitColumn}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+        
+        
         <StackPanel Grid.ColumnSpan="3" Grid.Row="2" Orientation="Horizontal">
             <Button x:Name="Operators" Content="Операторы" Width="100">
             </Button>

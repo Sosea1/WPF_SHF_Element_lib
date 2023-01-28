@@ -14,6 +14,12 @@ namespace WPF_SHF_Element_lib
     /// </summary>
     public partial class Window2 : Window
     {
+        // Create the interop host control.
+        System.Windows.Forms.Integration.WindowsFormsHost host =
+            new System.Windows.Forms.Integration.WindowsFormsHost();
+
+        // Create the MaskedTextBox control.
+        DataGridView dataGridView = new DataGridView();
         bool exit = false;
         public Window2()
         {
@@ -32,7 +38,19 @@ namespace WPF_SHF_Element_lib
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-           
+            host.Child = dataGridView;
+
+
+            Grid.SetColumnSpan(host, 3);
+            Grid.SetRow(host, 1);
+            this.win3.Children.Add(host);
+            
+            dataGridView.ColumnCount = 1;
+            dataGridView.RowHeadersVisible = true;
+            dataGridView.BackgroundColor = System.Drawing.Color.White;
+            dataGridView.Columns[1].HeaderText = "Формула";
+            
+
             bool f = false;
             if(Data.ValuesChanged == true)
             {
@@ -53,7 +71,7 @@ namespace WPF_SHF_Element_lib
                 }
             }
             if (!f) 
-            grid.ItemsSource = Data.dataGrid1_Elements;
+          
 
 
 
@@ -94,14 +112,7 @@ namespace WPF_SHF_Element_lib
             bool f = false;
             foreach (DataGrid1_Elements element in Data.dataGrid1_Elements)
             {
-                var x = grid.Columns[1].GetCellContent(grid.Items[i]) as TextBlock;
-                if (string.IsNullOrEmpty(x.Text))
-                {
-                    f = true;
-                    break;
-                }
-                element.formulaColumn = x.Text;
-                i++;
+            
             }
             i = 0;
             foreach (DataGrid1_Parameters element in Data.dataGrid1_Parameters)
@@ -146,8 +157,11 @@ namespace WPF_SHF_Element_lib
             {"˚","˚"},
         };
 
+
+
         private void WrapPanel_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            grid1.SelectedIndex = 0;
             Point pt = e.GetPosition(wrapOperators);
             HitTestResult result = VisualTreeHelper.HitTest(wrapOperators, pt);
             System.Windows.Controls.Button button = Data.FindParent<System.Windows.Controls.Button>(result.VisualHit);
@@ -169,6 +183,9 @@ namespace WPF_SHF_Element_lib
                 }
             }
         }
+
+
+
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             int i = 0;
@@ -176,17 +193,8 @@ namespace WPF_SHF_Element_lib
             foreach (DataGrid1_Elements element in Data.dataGrid1_Elements)
             {
 
-                var x = grid.Columns[1].GetCellContent(grid.Items[i]) as TextBlock;
-                if (string.IsNullOrEmpty(x.Text))
-                {
-                    element.formulaColumn = "";
-                }
-                else
-                {
-                    element.formulaColumn = x.Text;
-                }
-                
-                i++;
+            
+              
             }
             i = 0;
             foreach (DataGrid1_Parameters element in Data.dataGrid1_Parameters)
@@ -228,6 +236,8 @@ namespace WPF_SHF_Element_lib
                 }
             }
         }
+
+        
     }
 
     public class DataGrid1_Elements
