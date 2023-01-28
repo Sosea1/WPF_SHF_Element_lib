@@ -11,6 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -33,11 +34,40 @@
                 <DataGridTextColumn x:Name="UnitColumn" Header="Единица измерения" Width="*" Binding="{Binding unitColumn}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <StackPanel Grid.ColumnSpan="3" Grid.Row="2" Orientation="Horizontal">
+            <Button x:Name="Operators" Content="Операторы" Width="100">
+            </Button>
+            <Button x:Name="Symbols" Content="Символы" Width="100" />
+            <Button x:Name="Constants" Content="Константы" Width="100"/>
+            <Popup x:Name="OperatorPopup" StaysOpen="True" IsOpen="{Binding Mode=OneWay, ElementName=Operators, Path=IsFocused}" PlacementTarget="{Binding ElementName=Operators}" >
+                <WrapPanel x:Name="wrapOperators" Width="200"  ItemHeight="40" ItemWidth="50" AutomationProperties.ItemType="" PreviewMouseDown="WrapPanel_PreviewMouseDown" >
+                    <Button Content="+"/>
+                    <Button Content="-"/>
+                    <Button Content="∙"/>
+                    <Button Content="/"/>
+                    <Button Content="√x"/>
+                    <Button Content="xⁿ"/>
+                    <Button Content="|x|"/>
+                    <Button Content="x!"/>
+                    <Button Content="()"/>
+                    <Button Content="sin(x)"/>
+                    <Button Content="cos(x)"/>
+                    <Button Content="tan(x)"/>
+                    <Button Content="cot(x)"/>
+                    <Button Content="˚"/>
+                </WrapPanel>
+            </Popup>
+            <Popup x:Name="SymbolsPopup" StaysOpen="True" IsOpen="{Binding Mode=OneWay, ElementName=Symbols, Path=IsFocused}" PlacementTarget="{Binding ElementName=Symbols}" >
+                <WrapPanel Width="200"  ItemHeight="40" ItemWidth="50" AutomationProperties.ItemType="" PreviewMouseDown="WrapPanel_PreviewMouseDown" >
+                    <TextBlock Width="200" Text="Прописная буква греческого алфавита" Focusable="False"/>
+                    <Button Content="()"/>
+                </WrapPanel>
+            </Popup>
+        </StackPanel>
 
 
 
-
-        <StatusBar VerticalAlignment="Bottom" Margin="0,0,0,0" Grid.ColumnSpan="3" Height="50" Grid.RowSpan="3">
+        <StatusBar VerticalAlignment="Bottom" Margin="0,0,0,0" Grid.ColumnSpan="3" Height="50" Grid.RowSpan="4">
             <StatusBarItem HorizontalAlignment="Left">
                 <Button Content="Назад" HorizontalAlignment="Left" Height="22" Width="80" VerticalAlignment="Bottom" Margin="16,0,0,0" Click="ButtonBack_Click"/>
             </StatusBarItem>
@@ -47,6 +77,7 @@
             
 
         </StatusBar>
+        
     </Grid>
     
 </Window>

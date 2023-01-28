@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Media;
+using MessageBox = System.Windows.MessageBox;
 
 namespace WPF_SHF_Element_lib
 {
@@ -29,7 +32,7 @@ namespace WPF_SHF_Element_lib
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
+           
             bool f = false;
             if(Data.ValuesChanged == true)
             {
@@ -126,6 +129,47 @@ namespace WPF_SHF_Element_lib
             }
         }
 
+        private Dictionary<string, string> operators = new Dictionary<string, string>()
+        {
+            {"+","+"},
+            {"-","-"},
+            {"∙","*"},
+            {"/","/"},
+            {"√x","sqrt()"},
+            {"xⁿ","^()"},
+            {"|x|","||"},
+            {"x!","!"},
+            {"()","()"},
+            {"sin(x)","sin()"},
+            {"cos(x)","cos()"},
+            {"tan(x)","tan()"},
+            {"cot(x)","cot()"},
+            {"˚","˚"},
+        };
+
+        private void WrapPanel_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Point pt = e.GetPosition(wrapOperators);
+            HitTestResult result = VisualTreeHelper.HitTest(wrapOperators, pt);
+            System.Windows.Controls.Button button = Data.FindParent<System.Windows.Controls.Button>(result.VisualHit);
+            if (button != null)
+            {
+                var temp = ((System.Windows.Forms.TextBox)grid1.CurrentItem).SelectionStart;
+                if (operators.TryGetValue(button.Content.ToString(), out string value))
+                {
+                    int pos = 0;
+                    if (value.Length == 5) pos = 4;
+                    else if (value.Length == 6) pos = 5;
+                    else if (value.Length == 1) pos = 1;
+                    else if (value.Length == 2) pos = 1;
+                    else if (value.Length == 3) pos = 2;
+                    else { }
+                    ((System.Windows.Forms.TextBox)grid1.CurrentItem).SelectedText = value;
+            
+                    ((System.Windows.Forms.TextBox)grid1.CurrentItem).SelectionStart = temp + pos;
+                }
+            }
+        }
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             int i = 0;
