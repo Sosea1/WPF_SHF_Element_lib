@@ -75,7 +75,7 @@ namespace WPF_SHF_Element_lib
                 }
                 if (params_textbox.Text != Data.parametersText)
                 {
-                    Data.parameters = params_textbox.Text.Split(',').ToList();
+                    Data.parameters = (params_textbox.Text.Replace(" ","")).Split(',').ToList();
                     Data.parametersText = params_textbox.Text;
                     Data.ParamsChanged = true;
                 }
