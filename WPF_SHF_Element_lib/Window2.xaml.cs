@@ -66,7 +66,6 @@ namespace WPF_SHF_Element_lib
                 {
                     foreach (string parameter in Data.parameters)
                     {
-                        Console.WriteLine(parameter);
                         Data.dataGrid1_Parameters.Add(new DataGrid1_Parameters { paramColumn = parameter });
                     }
                  
