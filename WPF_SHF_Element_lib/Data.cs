@@ -17,6 +17,7 @@ namespace WPF_SHF_Element_lib
         public static string group;
         public static string name;
         public static List<string> parameters = new List<string>();
+        public static List<string> values = new List<string>();
         public static string parametersText;
         public static int IndexGroup;
         public static string ImagePath;

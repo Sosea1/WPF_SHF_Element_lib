@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -17,9 +18,12 @@ namespace WPF_SHF_Element_lib
         // Create the interop host control.
         System.Windows.Forms.Integration.WindowsFormsHost host =
             new System.Windows.Forms.Integration.WindowsFormsHost();
+        System.Windows.Forms.Integration.WindowsFormsHost host1 =
+            new System.Windows.Forms.Integration.WindowsFormsHost();
 
         // Create the MaskedTextBox control.
-        DataGridView dataGridView = new DataGridView();
+        DataGridView dataGridValues = new DataGridView();
+        DataGridView dataGridParameters = new DataGridView();
         bool exit = false;
         public Window2()
         {
@@ -38,18 +42,32 @@ namespace WPF_SHF_Element_lib
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            host.Child = dataGridView;
-
-
+            host.Child = dataGridValues;
+            host1.Child = dataGridParameters;
             Grid.SetColumnSpan(host, 3);
+            Grid.SetColumnSpan(host1, 3);
             Grid.SetRow(host, 1);
+            Grid.SetRow(host1, 0);
             this.win3.Children.Add(host);
-            
-            dataGridView.ColumnCount = 1;
-            dataGridView.RowHeadersVisible = true;
-            dataGridView.BackgroundColor = System.Drawing.Color.White;
-            dataGridView.Columns[1].HeaderText = "Формула";
-            
+            this.win3.Children.Add(host1);
+
+            dataGridValues.ColumnCount = 1;
+            dataGridValues.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridValues.RowHeadersVisible = true;
+            dataGridValues.SelectionMode= DataGridViewSelectionMode.CellSelect;
+            dataGridValues.AllowUserToDeleteRows = false;
+            dataGridValues.AllowUserToAddRows = false;
+            dataGridValues.BackgroundColor = System.Drawing.Color.White;
+            dataGridValues.Columns[0].HeaderText = "Формула";
+
+            dataGridParameters.ColumnCount = 1;
+            dataGridParameters.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridParameters.RowHeadersVisible = true;
+            dataGridParameters.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dataGridParameters.AllowUserToDeleteRows = false;
+            dataGridParameters.AllowUserToAddRows = false;
+            dataGridParameters.BackgroundColor = System.Drawing.Color.White;
+            dataGridParameters.Columns[0].HeaderText = "Единица измерения";
 
             bool f = false;
             if(Data.ValuesChanged == true)
@@ -61,21 +79,27 @@ namespace WPF_SHF_Element_lib
                 }
                 else
                 {
-                    foreach (string element in Data.elements)
+                    for (int i = 0; i < Data.values.Count; i++)
                     {
-                        Console.WriteLine(element);
-                        Data.dataGrid1_Elements.Add(new DataGrid1_Elements { headerColumn = element });
+                        
+                        Data.dataGrid1_Elements.Add(new DataGrid1_Elements { headerColumn = Data.values[i] });
                     }
                   
                     Data.ValuesChanged = false;
                 }
             }
-            if (!f) 
-          
-
-
-
-            f = false;
+            if (!f)
+            {
+                for (int i=0;i< Data.values.Count;i++) 
+                {
+                    
+                    dataGridValues.Rows.Add();                    
+                    dataGridValues.Rows[i].HeaderCell.Value=Data.values[i];
+                    dataGridValues.Rows[i].Cells[0].Value = Data.dataGrid1_Elements[i].formulaColumn;
+                }
+            }   
+        f = false;
+ 
             if (Data.ParamsChanged == true)
             {
                 Data.dataGrid1_Parameters.Clear();
@@ -85,16 +109,25 @@ namespace WPF_SHF_Element_lib
                 }
                 else
                 {
-                    foreach (string parameter in Data.parameters)
+                    for (int i = 0; i < Data.parameters.Count; i++)
                     {
-                        Data.dataGrid1_Parameters.Add(new DataGrid1_Parameters { paramColumn = parameter });
+                        Data.dataGrid1_Parameters.Add(new DataGrid1_Parameters { paramColumn = Data.parameters[i] });
+                        
                     }
-                 
                     Data.ParamsChanged = false;
                 }
             }
             if (!f)
-                grid1.ItemsSource = Data.dataGrid1_Parameters;
+            {
+                    for (int i = 0; i < Data.parameters.Count; i++)
+                    {
+                         dataGridParameters.Rows.Add();
+                        dataGridParameters.Rows[i].HeaderCell.Value = Data.parameters[i];
+                        dataGridParameters.Rows[i].Cells[0].Value = Data.dataGrid1_Parameters[i].unitColumn;
+                    }
+            } 
+                
+
         }
     
 
@@ -108,24 +141,40 @@ namespace WPF_SHF_Element_lib
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
+            dataGridParameters.EndEdit();
+            dataGridValues.EndEdit();
+           
             int i = 0;
             bool f = false;
-            foreach (DataGrid1_Elements element in Data.dataGrid1_Elements)
-            {
             
-            }
-            i = 0;
             foreach (DataGrid1_Parameters element in Data.dataGrid1_Parameters)
             {
-                var x = grid1.Columns[1].GetCellContent(grid1.Items[i]) as TextBlock;
-                if (string.IsNullOrEmpty(x.Text))
+                if (dataGridParameters.Rows[i].Cells[0].Value == null)
                 {
                     f = true;
                     break;
                 }
-                element.unitColumn = x.Text;
+                element.unitColumn = dataGridParameters.Rows[i].Cells[0].Value.ToString();
+                i++;
+
+               
+            }
+            i = 0;
+
+            
+            foreach (DataGrid1_Elements element in Data.dataGrid1_Elements)
+            {
+
+                if (dataGridValues.Rows[i].Cells[0].Value == null)
+                {
+                    f = true;
+                    break;
+                }
+                element.formulaColumn = dataGridValues.Rows[i].Cells[0].Value.ToString();
                 i++;
             }
+
+
             if (f)
             {
                 MessageBox.Show("Не все формулы были введены");
@@ -161,13 +210,13 @@ namespace WPF_SHF_Element_lib
 
         private void WrapPanel_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            grid1.SelectedIndex = 0;
+           
             Point pt = e.GetPosition(wrapOperators);
             HitTestResult result = VisualTreeHelper.HitTest(wrapOperators, pt);
             System.Windows.Controls.Button button = Data.FindParent<System.Windows.Controls.Button>(result.VisualHit);
             if (button != null)
             {
-                var temp = ((System.Windows.Forms.TextBox)grid1.CurrentItem).SelectionStart;
+                var temp = ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectionStart;
                 if (operators.TryGetValue(button.Content.ToString(), out string value))
                 {
                     int pos = 0;
@@ -177,9 +226,9 @@ namespace WPF_SHF_Element_lib
                     else if (value.Length == 2) pos = 1;
                     else if (value.Length == 3) pos = 2;
                     else { }
-                    ((System.Windows.Forms.TextBox)grid1.CurrentItem).SelectedText = value;
+                    ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectedText = value;
             
-                    ((System.Windows.Forms.TextBox)grid1.CurrentItem).SelectionStart = temp + pos;
+                    ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectionStart = temp + pos;
                 }
             }
         }
@@ -189,29 +238,34 @@ namespace WPF_SHF_Element_lib
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             int i = 0;
-            
-            foreach (DataGrid1_Elements element in Data.dataGrid1_Elements)
-            {
-
-            
-              
-            }
-            i = 0;
             foreach (DataGrid1_Parameters element in Data.dataGrid1_Parameters)
             {
-
-                var x = grid1.Columns[1].GetCellContent(grid1.Items[i]) as TextBlock;
-                if (string.IsNullOrEmpty(x.Text))
+                if (dataGridParameters.Rows[i].Cells[0].Value == null)
                 {
                     element.unitColumn = "";
                 }
                 else
-                {
-                    element.unitColumn = x.Text;
-                }
+                element.unitColumn = dataGridParameters.Rows[i].Cells[0].Value.ToString();
+                i++;
 
+
+            }
+            i = 0;
+
+
+            foreach (DataGrid1_Elements element in Data.dataGrid1_Elements)
+            {
+
+                if (dataGridValues.Rows[i].Cells[0].Value == null)
+                {
+                    element.formulaColumn = "";
+                }
+                else
+                element.formulaColumn = dataGridValues.Rows[i].Cells[0].Value.ToString();
                 i++;
             }
+
+           
 
             exit = true;
             Window1 win = new Window1();

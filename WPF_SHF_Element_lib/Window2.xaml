@@ -19,12 +19,7 @@
             <ColumnDefinition Width="58*"></ColumnDefinition>
             <ColumnDefinition Width="55*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <DataGrid Grid.Row="0"  Grid.ColumnSpan="3" x:Name="grid1" AutoGenerateColumns="False" CanUserAddRows="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn x:Name="ParamColumn" Binding="{Binding paramColumn}" Width="80" IsReadOnly="True" ></DataGridTextColumn>
-                <DataGridTextColumn x:Name="UnitColumn" Header="Единица измерения" Width="*" Binding="{Binding unitColumn}"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        
         
         
         <StackPanel Grid.ColumnSpan="3" Grid.Row="2" Orientation="Horizontal">

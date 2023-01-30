@@ -19,10 +19,11 @@ namespace WPF_SHF_Element_lib
     {
         //Dictionary<string, string> values = new Dictionary<string, string>();
         string file;
-
+        bool exit=false;
         public Window1()
         {
-            InitializeComponent();  
+            InitializeComponent();
+            
             comboBox1.SelectedIndex= 0;
             if (string.IsNullOrEmpty(Data.values_text) == false) values_textbox.Text = Data.values_text;
             if (string.IsNullOrEmpty(Data.group) == false) comboBox1.Text = Data.group;
@@ -65,7 +66,7 @@ namespace WPF_SHF_Element_lib
             {   Data.IndexGroup = comboBox1.SelectedIndex + 1;
                 if (values_textbox.Text != Data.values_text)
                 {
-                    dataGrid1_Fill();
+                    Data.values = (values_textbox.Text.Replace(" ", "")).Split(',').ToList();
                     Data.values_text = values_textbox.Text;
                     Data.ValuesChanged = true;
                 }
@@ -83,7 +84,7 @@ namespace WPF_SHF_Element_lib
                 {
                     Data.ParamsChanged = false;
                 }
-
+                exit = true;
                 this.Close();
                 Window2 window2 = new Window2();
                 window2.Show();
@@ -94,11 +95,11 @@ namespace WPF_SHF_Element_lib
           
         }
 
-        public void dataGrid1_Fill()
-        {
-            Data.elements = values_textbox.Text.Split(',').ToList();
+      
+            
+            
 
-        }
+     
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -111,6 +112,16 @@ namespace WPF_SHF_Element_lib
 
                 selectedImage.Source = new BitmapImage( new Uri(file));
                 Data.ImagePath = file;
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (exit == false)
+            {
+                {
+                    Data.clearData();
+                }
             }
         }
     }
