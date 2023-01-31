@@ -14,7 +14,7 @@ namespace WPF_SHF_Element_lib
       
         public static bool ValuesChanged = false;
         public static bool ParamsChanged = false;
-        public static string group;
+        public static int group;
         public static string name;
         public static List<string> parameters = new List<string>();
         public static List<string> values = new List<string>();
@@ -36,7 +36,7 @@ namespace WPF_SHF_Element_lib
            dataGrid1_Parameters = new List<DataGrid1_Parameters>();
             ValuesChanged = false;
             ParamsChanged= false;
-            group = null;
+            group = 0;
             name = null;
             parameters = new List<string>();
             parametersText = null;
