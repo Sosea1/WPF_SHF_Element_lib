@@ -69,6 +69,9 @@ namespace WPF_SHF_Element_lib
             dataGridParameters.BackgroundColor = System.Drawing.Color.White;
             dataGridParameters.Columns[0].HeaderText = "Единица измерения";
 
+            dataGridValues.CellMouseClick += DataGridView_CellMouseClick;
+           
+
             bool f = false;
             if(Data.ValuesChanged == true)
             {
@@ -129,9 +132,12 @@ namespace WPF_SHF_Element_lib
                 
 
         }
-    
 
 
+        private void DataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            dataGridValues.BeginEdit(false);
+        }
 
 
 
@@ -206,29 +212,32 @@ namespace WPF_SHF_Element_lib
             {"˚","˚"},
         };
 
-
-
         private void WrapPanel_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-           
             Point pt = e.GetPosition(wrapOperators);
             HitTestResult result = VisualTreeHelper.HitTest(wrapOperators, pt);
             System.Windows.Controls.Button button = Data.FindParent<System.Windows.Controls.Button>(result.VisualHit);
             if (button != null)
             {
-                var temp = ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectionStart;
-                if (operators.TryGetValue(button.Content.ToString(), out string value))
+                if (dataGridValues.SelectedCells.Count == 0)
+                { }
+                else
                 {
-                    int pos = 0;
-                    if (value.Length == 5) pos = 4;
-                    else if (value.Length == 6) pos = 5;
-                    else if (value.Length == 1) pos = 1;
-                    else if (value.Length == 2) pos = 1;
-                    else if (value.Length == 3) pos = 2;
-                    else { }
-                    ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectedText = value;
-            
-                    ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectionStart = temp + pos;
+                    var temp = ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectionStart;
+                    if (operators.TryGetValue(button.Content.ToString(), out string value))
+                    {
+                        int pos = 0;
+                        if (value.Length == 5) pos = 4;
+                        else if (value.Length == 6) pos = 5;
+                        else if (value.Length == 1) pos = 1;
+                        else if (value.Length == 2) pos = 1;
+                        else if (value.Length == 3) pos = 2;
+                        else { }
+                        ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectedText = value;
+                        dataGridValues.EndEdit();
+                        dataGridValues.BeginEdit(false);
+                        ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectionStart = temp + pos;
+                    }
                 }
             }
         }

@@ -257,22 +257,29 @@ namespace WPF_SHF_Element_lib
             System.Windows.Controls.Button button = Data.FindParent<System.Windows.Controls.Button>(result.VisualHit);
             if (button != null)
             {
-                var temp = ((System.Windows.Forms.TextBox)dataGridView.EditingControl).SelectionStart;
+                if (dataGridView.SelectedCells.Count == 0)
+                { }
+                else
+                { 
+                int temp = ((System.Windows.Forms.TextBox)dataGridView.EditingControl).SelectionStart;
+
                 if (operators.TryGetValue(button.Content.ToString(), out string value))
-                {
-                    int pos = 0;
-                    if (value.Length == 5) pos = 4;
-                    else if(value.Length == 6) pos = 5;
-                    else if (value.Length == 1) pos = 1;
-                    else if (value.Length == 2) pos = 1;
-                    else if (value.Length == 3) pos = 2;
-                    else { }
-                    ((System.Windows.Forms.TextBox)dataGridView.EditingControl).SelectedText = value;
-                    dataGridView.EndEdit();
-                    dataGridView.BeginEdit(false);
-                    ((System.Windows.Forms.TextBox)dataGridView.EditingControl).SelectionStart = temp+pos;
+                    {
+                        int pos = 0;
+                        if (value.Length == 5) pos = 4;
+                        else if (value.Length == 6) pos = 5;
+                        else if (value.Length == 1) pos = 1;
+                        else if (value.Length == 2) pos = 1;
+                        else if (value.Length == 3) pos = 2;
+                        else { }
+                        ((System.Windows.Forms.TextBox)dataGridView.EditingControl).SelectedText = value;
+                        dataGridView.EndEdit();
+                        dataGridView.BeginEdit(false);
+                        ((System.Windows.Forms.TextBox)dataGridView.EditingControl).SelectionStart = temp + pos;
+                    
+                    }
                 }
-            }
+            }         
         }
     }
 

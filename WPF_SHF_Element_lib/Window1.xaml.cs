@@ -120,7 +120,15 @@ namespace WPF_SHF_Element_lib
             if (exit == false)
             {
                 {
-                    Data.clearData();
+                    MessageBoxResult res = MessageBox.Show("Вы уверены что хотите выйти?", "Внимание!", MessageBoxButton.YesNo);
+                    if (res == MessageBoxResult.Yes)
+                    {
+                        Data.clearData();
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                    }
                 }
             }
         }
