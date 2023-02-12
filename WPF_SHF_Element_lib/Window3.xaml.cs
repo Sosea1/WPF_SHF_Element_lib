@@ -63,18 +63,18 @@ namespace WPF_SHF_Element_lib
             Data.matrixElements.Clear();
             Element element = new Element();
             bool f = false;
-            for (int i = 0; i < dataGridView.ColumnCount; i++)
+            for (int i = 0; i < dataGridView.RowCount; i++)
             {
-                for (int j = 0; j < dataGridView.RowCount; j++)
+                for (int j = 0; j < dataGridView.ColumnCount; j++)
                 {
                     //matrixElements.Add(new MatrixElements { column = i, element= dataGridView[j, i].Value == null ? null : dataGridView[j, i].Value.ToString()});
-                    if (dataGridView.Rows[j].Cells[i].Value == null)
+                    if (dataGridView.Rows[i].Cells[j].Value == null)
                     {
                         f = true;
                         break;
                     }
                     else
-                    Data.matrixElements.Add(new MatrixElements { indexexOfRowAndColumn = i+","+j, element = dataGridView.Rows[j].Cells[i].Value.ToString() });
+                    Data.matrixElements.Add(new MatrixElements { indexexOfRowAndColumn = i+","+j, element = dataGridView.Rows[i].Cells[j].Value.ToString() });
                 }
                 if(f) break;
             }

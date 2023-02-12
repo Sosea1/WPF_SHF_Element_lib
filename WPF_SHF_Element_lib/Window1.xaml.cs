@@ -26,7 +26,7 @@ namespace WPF_SHF_Element_lib
             
             comboBox1.SelectedIndex= 0;
             if (string.IsNullOrEmpty(Data.values_text) == false) values_textbox.Text = Data.values_text;
-            if (string.IsNullOrEmpty(Data.group) == false) comboBox1.Text = Data.group;
+            if (Data.group != 0) comboBox1.SelectedIndex = Data.group;
             if (string.IsNullOrEmpty(Data.name) == false) nameElement.Text = Data.name;
             if (string.IsNullOrEmpty(Data.parametersText) == false) params_textbox.Text = Data.parametersText;
           
@@ -53,7 +53,7 @@ namespace WPF_SHF_Element_lib
                 break;
             }
 
-            Data.group = comboBox1.Text;
+            Data.group = comboBox1.SelectedIndex+1;
             Data.name = nameElement.Text;
             
             if (string.IsNullOrEmpty(nameElement.Text) == true)
