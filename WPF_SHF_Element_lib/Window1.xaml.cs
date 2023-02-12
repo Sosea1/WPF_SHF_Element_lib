@@ -64,7 +64,7 @@ namespace WPF_SHF_Element_lib
                 MessageBox.Show("Элемент с таким именем уже существует");
             else
             {   Data.IndexGroup = comboBox1.SelectedIndex + 1;
-                if (values_textbox.Text != Data.values_text)
+                if (values_textbox.Text != Data.values_text && !string.IsNullOrEmpty(values_textbox.Text))
                 {
                     Data.values = (values_textbox.Text.Replace(" ", "")).Split(',').ToList();
                     Data.values_text = values_textbox.Text;
@@ -74,7 +74,7 @@ namespace WPF_SHF_Element_lib
                 {
                     Data.ValuesChanged = false;
                 }
-                if (params_textbox.Text != Data.parametersText)
+                if (params_textbox.Text != Data.parametersText && !string.IsNullOrEmpty(params_textbox.Text))
                 {
                     Data.parameters = (params_textbox.Text.Replace(" ","")).Split(',').ToList();
                     Data.parametersText = params_textbox.Text;
@@ -85,9 +85,11 @@ namespace WPF_SHF_Element_lib
                     Data.ParamsChanged = false;
                 }
                 exit = true;
-                this.Close();
                 Window2 window2 = new Window2();
-                window2.Show();
+          
+                window2.Owner = this.Owner;
+                this.Close();
+                window2.ShowDialog();
                
             }
             if (string.IsNullOrEmpty(Data.ImagePath)) { Data.ImagePath = null; }

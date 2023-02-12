@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using MessageBox = System.Windows.MessageBox;
 
 namespace WPF_SHF_Element_lib
@@ -13,7 +14,7 @@ namespace WPF_SHF_Element_lib
     /// <summary>
     /// Логика взаимодействия для Window2.xaml
     /// </summary>
-    public partial class Window2 : Window
+    public partial class Window2 : System.Windows.Window
     {
         // Create the interop host control.
         System.Windows.Forms.Integration.WindowsFormsHost host =
@@ -70,8 +71,9 @@ namespace WPF_SHF_Element_lib
             dataGridParameters.Columns[0].HeaderText = "Единица измерения";
 
             dataGridValues.CellMouseClick += DataGridView_CellMouseClick;
-           
 
+            Console.WriteLine(Data.values[0]);
+            Console.WriteLine(Data.parameters.Count);
             bool f = false;
             if(Data.ValuesChanged == true)
             {
@@ -155,7 +157,7 @@ namespace WPF_SHF_Element_lib
             
             foreach (DataGrid1_Parameters element in Data.dataGrid1_Parameters)
             {
-                if (dataGridParameters.Rows[i].Cells[0].Value == null)
+                if (string.IsNullOrEmpty(dataGridParameters.Rows[i].Cells[0].Value.ToString()) )
                 {
                     f = true;
                     break;
@@ -171,7 +173,7 @@ namespace WPF_SHF_Element_lib
             foreach (DataGrid1_Elements element in Data.dataGrid1_Elements)
             {
 
-                if (dataGridValues.Rows[i].Cells[0].Value == null)
+                if (string.IsNullOrEmpty(dataGridValues.Rows[i].Cells[0].Value.ToString()))
                 {
                     f = true;
                     break;
@@ -189,8 +191,9 @@ namespace WPF_SHF_Element_lib
             {
                 exit = true;
                 Window3 win = new Window3();
+                win.Owner = this.Owner;
                 this.Close();
-                win.Show();
+                win.ShowDialog();
             }
         }
 
@@ -210,46 +213,103 @@ namespace WPF_SHF_Element_lib
             {"tan(x)","tan()"},
             {"cot(x)","cot()"},
             {"˚","˚"},
+            {"α","α"},
+            {"β","β"},
+            {"γ","γ"},
+            {"δ","δ"},
+            {"ε","ε"},
+            {"η","η"},
+            {"θ","θ"},
+            {"λ","λ"},
+            {"μ","μ"},
+            {"φ","φ"},
+            {"σ","σ"},
+            {"ρ","ρ"},
+            {"ω","ω"},
+            {"Δ","Δ"},
+            {"Θ","Θ"},
+            {"Λ","Λ"},
+            {"Ω","Ω"},
         };
 
         private void WrapPanel_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            Point pt = e.GetPosition(wrapOperators);
-            HitTestResult result = VisualTreeHelper.HitTest(wrapOperators, pt);
-            System.Windows.Controls.Button button = Data.FindParent<System.Windows.Controls.Button>(result.VisualHit);
-            if (button != null)
-            {
-                if (dataGridValues.SelectedCells.Count == 0)
-                { }
-                else
                 {
-                    var temp = ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectionStart;
-                    if (operators.TryGetValue(button.Content.ToString(), out string value))
+            Point pt = e.GetPosition(wrapOperators);
+            Point pt1 = e.GetPosition(wrapSymb);
+            HitTestResult result = VisualTreeHelper.HitTest(wrapOperators, pt);
+            HitTestResult result1 = VisualTreeHelper.HitTest(wrapSymb, pt1);
+            if (VisualTreeHelper.HitTest(wrapOperators, pt) == null && VisualTreeHelper.HitTest(wrapSymb, pt1) == null)
+            { }
+            else if (result != null && pt != new Point(0,0))
+            {
+                
+                System.Windows.Controls.Button button = Data.FindParent<System.Windows.Controls.Button>(result.VisualHit);
+                if (button != null)
+                {
+                    if (dataGridValues.SelectedCells.Count == 0)
+                    { }
+                    else
                     {
-                        int pos = 0;
-                        if (value.Length == 5) pos = 4;
-                        else if (value.Length == 6) pos = 5;
-                        else if (value.Length == 1) pos = 1;
-                        else if (value.Length == 2) pos = 1;
-                        else if (value.Length == 3) pos = 2;
-                        else { }
-                        ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectedText = value;
-                        dataGridValues.EndEdit();
-                        dataGridValues.BeginEdit(false);
-                        ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectionStart = temp + pos;
+                        var temp = ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectionStart;
+                        if (operators.TryGetValue(button.Content.ToString(), out string value))
+                        {
+                            int pos = 0;
+                            if (value.Length == 5) pos = 4;
+                            else if (value.Length == 6) pos = 5;
+                            else if (value.Length == 1) pos = 1;
+                            else if (value.Length == 2) pos = 1;
+                            else if (value.Length == 3) pos = 2;
+                            else { }
+                            ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectedText = value;
+                            dataGridValues.EndEdit();
+                            dataGridValues.BeginEdit(false);
+                            ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectionStart = temp + pos;
+                        }
                     }
                 }
             }
+            else if (result1 != null && pt1 != new Point(0, 0))
+            {
+                
+                System.Windows.Controls.Button button = Data.FindParent<System.Windows.Controls.Button>(result1.VisualHit);
+                if (button != null)
+                {
+                    if (dataGridValues.SelectedCells.Count == 0)
+                    { }
+                    else
+                    {
+                        var temp = ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectionStart;
+                        if (operators.TryGetValue(button.Content.ToString(), out string value))
+                        {
+                            int pos = 0;
+                            if (value.Length == 5) pos = 4;
+                            else if (value.Length == 6) pos = 5;
+                            else if (value.Length == 1) pos = 1;
+                            else if (value.Length == 2) pos = 1;
+                            else if (value.Length == 3) pos = 2;
+                            else { }
+                            ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectedText = value;
+                            dataGridValues.EndEdit();
+                            dataGridValues.BeginEdit(false);
+                            ((System.Windows.Forms.TextBox)dataGridValues.EditingControl).SelectionStart = temp + pos;
+                        }
+                    }
+                }
+            }
+            
         }
 
 
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
+            dataGridParameters.EndEdit();
+            dataGridValues.EndEdit();
+
             int i = 0;
             foreach (DataGrid1_Parameters element in Data.dataGrid1_Parameters)
             {
-                if (dataGridParameters.Rows[i].Cells[0].Value == null)
+                if (dataGridParameters.Rows[i].Cells[0].Value == null || string.IsNullOrEmpty(dataGridParameters.Rows[i].Cells[0].Value.ToString()))
                 {
                     element.unitColumn = "";
                 }
@@ -265,7 +325,7 @@ namespace WPF_SHF_Element_lib
             foreach (DataGrid1_Elements element in Data.dataGrid1_Elements)
             {
 
-                if (dataGridValues.Rows[i].Cells[0].Value == null)
+                if (dataGridValues.Rows[i].Cells[0].Value == null || string.IsNullOrEmpty(dataGridValues.Rows[i].Cells[0].Value.ToString()))
                 {
                     element.formulaColumn = "";
                 }
@@ -278,8 +338,9 @@ namespace WPF_SHF_Element_lib
 
             exit = true;
             Window1 win = new Window1();
+            win.Owner = this.Owner;
             this.Close();
-            win.Show();
+            win.ShowDialog();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

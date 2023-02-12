@@ -52,8 +52,9 @@ namespace WPF_SHF_Element_lib
                 }
             }
             Window2 win = new Window2();
+            win.Owner = this.Owner;
             this.Close();
-            win.Show();
+            win.ShowDialog();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -108,8 +109,9 @@ namespace WPF_SHF_Element_lib
                         exit = true;
                         Data.clearData();
                         Window1 window1 = new Window1();
+                        window1.Owner = this.Owner;
                         this.Close();
-                        window1.Show();
+                        window1.ShowDialog();
                     }
                     else
                     {   
@@ -248,6 +250,24 @@ namespace WPF_SHF_Element_lib
             {"tan(x)","tan()"},
             {"cot(x)","cot()"},
             {"˚","˚"},
+            {"α","α"},
+            {"β","β"},
+            {"γ","γ"},
+            {"δ","δ"},
+            {"ε","ε"},
+            {"η","η"},
+            {"θ","θ"},
+            {"λ","λ"},
+            {"μ","μ"},
+            {"φ","φ"},
+            {"σ","σ"},
+            {"ρ","ρ"},
+            {"ω","ω"},
+            {"Δ","Δ"},
+            {"Θ","Θ"},
+            {"Λ","Λ"},
+            {"Ω","Ω"},
+           
         };
 
         private void WrapPanel_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

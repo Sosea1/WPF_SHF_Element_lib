@@ -46,9 +46,24 @@
                 </WrapPanel>
             </Popup>
             <Popup x:Name="SymbolsPopup" StaysOpen="True" IsOpen="{Binding Mode=OneWay, ElementName=Symbols, Path=IsFocused}" PlacementTarget="{Binding ElementName=Symbols}" >
-                <WrapPanel Width="200"  ItemHeight="40" ItemWidth="50" AutomationProperties.ItemType="" PreviewMouseDown="WrapPanel_PreviewMouseDown" >
-                    <TextBlock Width="200" Text="Прописная буква греческого алфавита" Focusable="False"/>
-                    <Button Content="()"/>
+                <WrapPanel x:Name="wrapSymb" Width="200"  ItemHeight="40" ItemWidth="50" AutomationProperties.ItemType="" PreviewMouseDown="WrapPanel_PreviewMouseDown" >
+                    <Button Content="α"/>
+                    <Button Content="β"/>
+                    <Button Content="γ"/>
+                    <Button Content="δ"/>
+                    <Button Content="ε"/>
+                    <Button Content="η"/>
+                    <Button Content="θ"/>
+                    <Button Content="λ"/>
+                    <Button Content="μ"/>
+                    <Button Content="φ"/>
+                    <Button Content="σ"/>
+                    <Button Content="ρ"/>
+                    <Button Content="ω"/>
+                    <Button Content="Δ"/>
+                    <Button Content="Θ"/>
+                    <Button Content="Λ"/>
+                    <Button Content="Ω"/>
                 </WrapPanel>
             </Popup>
         </StackPanel>
