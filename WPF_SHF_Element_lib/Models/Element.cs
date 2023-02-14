@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using WPF_SHF_Element_lib.Models;
 
 namespace WPF_SHF_Element_lib
 {

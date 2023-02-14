@@ -102,7 +102,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data.cs" />
-    <Compile Include="Element.cs" />
+    <Compile Include="Models\DataGrid1_Elements.cs" />
+    <Compile Include="Models\DataGrid1_Parameters.cs" />
+    <Compile Include="Models\Element.cs" />
+    <Compile Include="Models\MatrixElements.cs" />
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>

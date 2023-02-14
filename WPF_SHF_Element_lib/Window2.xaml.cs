@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
+using WPF_SHF_Element_lib.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using MessageBox = System.Windows.MessageBox;
 
@@ -87,7 +88,7 @@ namespace WPF_SHF_Element_lib
                     for (int i = 0; i < Data.values.Count; i++)
                     {
                         
-                        Data.dataGrid1_Elements.Add(new DataGrid1_Elements { headerColumn = Data.values[i] });
+                        Data.dataGrid1_Elements.Add(new DataGrid1_Elements (Data.values[i], null));
                     }
                   
                     Data.ValuesChanged = false;
@@ -116,7 +117,7 @@ namespace WPF_SHF_Element_lib
                 {
                     for (int i = 0; i < Data.parameters.Count; i++)
                     {
-                        Data.dataGrid1_Parameters.Add(new DataGrid1_Parameters { paramColumn = Data.parameters[i] });
+                        Data.dataGrid1_Parameters.Add(new DataGrid1_Parameters(Data.parameters[i], null));
                         
                     }
                     Data.ParamsChanged = false;
@@ -363,15 +364,5 @@ namespace WPF_SHF_Element_lib
 
         
     }
-
-    public class DataGrid1_Elements
-    {
-        public string headerColumn { get; set; } 
-        public string formulaColumn { get; set;}
-    }
-    public class DataGrid1_Parameters
-    {
-        public string paramColumn { get; set; }
-        public string unitColumn { get; set; }
-    }
+    
 }

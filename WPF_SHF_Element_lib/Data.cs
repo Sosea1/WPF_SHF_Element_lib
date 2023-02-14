@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
+using WPF_SHF_Element_lib.Models;
 
 namespace WPF_SHF_Element_lib
 {

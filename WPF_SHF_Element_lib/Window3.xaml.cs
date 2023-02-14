@@ -7,6 +7,7 @@ using MessageBox = System.Windows.MessageBox;
 using System.IO;
 using AngouriMath;
 using System.Windows.Media;
+using WPF_SHF_Element_lib.Models;
 
 namespace WPF_SHF_Element_lib
 {
@@ -48,7 +49,7 @@ namespace WPF_SHF_Element_lib
             {
                 for (int j = 0; j < dataGridView.RowCount; j++)
                 {
-                    Data.matrixElements.Add(new MatrixElements { indexexOfRowAndColumn = i + "," + j, element = dataGridView.Rows[j].Cells[i].Value == null ? null : dataGridView.Rows[j].Cells[i].Value.ToString() });
+                    Data.matrixElements.Add(new MatrixElements(i + "," + j, dataGridView.Rows[j].Cells[i].Value == null ? null : dataGridView.Rows[j].Cells[i].Value.ToString()));
                 }
             }
             Window2 win = new Window2();
@@ -74,7 +75,7 @@ namespace WPF_SHF_Element_lib
                         break;
                     }
                     else
-                    Data.matrixElements.Add(new MatrixElements { indexexOfRowAndColumn = i+","+j, element = dataGridView.Rows[i].Cells[j].Value.ToString() });
+                    Data.matrixElements.Add(new MatrixElements (i + "," + j, dataGridView.Rows[i].Cells[j].Value.ToString()));
                 }
                 if(f) break;
             }
@@ -166,7 +167,7 @@ namespace WPF_SHF_Element_lib
             {
                 for (int j = 0; j < dataGridView.RowCount; j++)
                 {
-                    Data.matrixElements.Add(new MatrixElements { indexexOfRowAndColumn = i + "," + j, element = dataGridView.Rows[j].Cells[i].Value == null ? null : dataGridView.Rows[j].Cells[i].Value.ToString() });
+                    Data.matrixElements.Add(new MatrixElements (i + "," + j, dataGridView.Rows[j].Cells[i].Value == null ? null : dataGridView.Rows[j].Cells[i].Value.ToString()));
                     if(Data.matrixElements[a].element != null) dataGridView.Rows[j].Cells[i].Value = Data.matrixElements[a].element;
                     a++;
                 }
@@ -303,9 +304,5 @@ namespace WPF_SHF_Element_lib
         }
     }
 
-    public class MatrixElements
-    {
-        public string indexexOfRowAndColumn { get; set; }
-        public string element { get; set; }
-    }
+  
 }
