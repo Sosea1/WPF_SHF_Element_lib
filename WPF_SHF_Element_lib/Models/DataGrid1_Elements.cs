@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPF_SHF_Element_lib.Models
 {
-    public class DataGrid1_Elements
+    public class DataGrid1_Elements : ICloneable
     {
         public string headerColumn { get; set; }
         public string formulaColumn { get; set; }
@@ -15,6 +15,11 @@ namespace WPF_SHF_Element_lib.Models
         {
             this.headerColumn = headerColumn;
             this.formulaColumn = formulaColumn;
+        }
+
+        public object Clone()
+        {
+            return new DataGrid1_Elements(this.headerColumn, this.formulaColumn);
         }
     }
 }

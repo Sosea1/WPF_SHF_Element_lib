@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPF_SHF_Element_lib.Models
 {
-    public class DataGrid1_Parameters
+    public class DataGrid1_Parameters: ICloneable
     {
         public string paramColumn { get; set; }
         public string unitColumn { get; set; }
@@ -15,6 +15,11 @@ namespace WPF_SHF_Element_lib.Models
         {
             this.paramColumn = paramColumn;
             this.unitColumn = unitColumn;
+        }
+
+        public object Clone()
+        {
+            return new DataGrid1_Parameters(paramColumn, unitColumn);
         }
     }
 }

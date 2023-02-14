@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPF_SHF_Element_lib.Models
 {
-    public class MatrixElements
+    public class MatrixElements : ICloneable
     {
         public string indexexOfRowAndColumn { get; set; }
         public string element { get; set; }
@@ -15,6 +15,11 @@ namespace WPF_SHF_Element_lib.Models
         {
             this.indexexOfRowAndColumn = indexexOfRowAndColumn;
             this.element = element;
-        } 
+        }
+
+        public object Clone()
+        {
+            return new MatrixElements(indexexOfRowAndColumn, element);
+        }
     }
 }
