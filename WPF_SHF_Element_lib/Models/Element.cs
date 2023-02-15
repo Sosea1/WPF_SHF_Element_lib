@@ -25,9 +25,10 @@ namespace WPF_SHF_Element_lib
                 AllowTrailingCommas = true,
                 WriteIndented = true
             };
-            string file_path = AppDomain.CurrentDomain.BaseDirectory+fileName;
+            string file_path = AppDomain.CurrentDomain.BaseDirectory + "elementsLib/" + fileName;
             if (!File.Exists(file_path))
             {
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "elementsLib/");
                 var elementsList = new List<Element>
                 {
                     new Element()
