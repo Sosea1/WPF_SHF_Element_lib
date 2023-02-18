@@ -9,6 +9,7 @@ using MessageBox = System.Windows.MessageBox;
 using AngouriMath;
 using WpfMath;
 using WpfMath.Controls;
+using System.Collections.Generic;
 
 namespace WPF_SHF_Element_lib
 {
@@ -26,7 +27,7 @@ namespace WPF_SHF_Element_lib
             
             comboBox1.SelectedIndex= 0;
             if (string.IsNullOrEmpty(Data.values_text) == false) values_textbox.Text = Data.values_text;
-            if (Data.group != 0) comboBox1.SelectedIndex = Data.group;
+            if (Data.group != 0) comboBox1.SelectedIndex = Data.group-1;
             if (string.IsNullOrEmpty(Data.name) == false) nameElement.Text = Data.name;
             if (string.IsNullOrEmpty(Data.parametersText) == false) params_textbox.Text = Data.parametersText;
           
@@ -40,21 +41,26 @@ namespace WPF_SHF_Element_lib
             
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-            switch (comboBox1.SelectedIndex)
+            Dictionary<int, string> groupFileName = new Dictionary<int, string>()
             {
-                case 0: Data.fileName = "2pole.json";
-                break;
-                case 1: Data.fileName = "4pole.json";
-                break;
-                case 2: Data.fileName = "6pole.json";
-                break;
-                case 3: Data.fileName = "8pole.json";
-                break;
-            }
+                {1,"two_pole.json" },
+                {2,"four_pole.json" },
+                {3,"six_pole.json" },
+                {4,"eight_pole.json" },
+                {5,"ten_pole.json" },
+                {6,"twelve_pole.json" },
+                {7,"fourteen_pole.json" },
+                {8,"sixteen_pole .json" },
+                {9,"eighteen_pole.json" },
+                {10,"twentee_pole.json" },
+                {11,"twenteetwo_pole.json" },
+                {12,"twentyfour_pole.json" },
+            };
 
-            Data.group = comboBox1.SelectedIndex+1;
             Data.name = nameElement.Text;
+            Data.group = comboBox1.SelectedIndex + 1;
+            groupFileName.TryGetValue(Data.group, out string value);
+            Data.fileName = value;
             
             if (string.IsNullOrEmpty(nameElement.Text) == true)
             {
