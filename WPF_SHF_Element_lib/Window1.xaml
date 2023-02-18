@@ -5,11 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_SHF_Element_lib"
         xmlns:controls="clr-namespace:WpfMath.Controls;assembly=WpfMath"
-    
         mc:Ignorable="d"
    Title="Добавление элемента" Height="290" Width="515"
-        MinHeight="400" MinWidth="760" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Background="White" Closing="Window_Closing">
-    <Grid x:Name="grid" Background="White">
+        MinHeight="400" MinWidth="760" WindowStartupLocation="CenterScreen" Background="White" Closing="Window_Closing">
+    <Grid x:Name="grid" Background="White" PreviewMouseDown="grid_PreviewMouseDown" >
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
@@ -41,36 +40,36 @@
 
         </ComboBox>
         <TextBox x:Name="nameElement" VerticalAlignment="Top" Width="270" Height="30" Grid.Row="2" Grid.Column="1"></TextBox>
-        <TextBox x:Name="params_textbox" VerticalAlignment="Top" Width="270" Height="30" Grid.Row="3" Grid.Column="1"></TextBox>
-        <TextBox x:Name="values_textbox" VerticalAlignment="Top" Width="270" Height="30" Grid.Row="4" Grid.Column="1"></TextBox>
+        <TextBox x:Name="params_textbox" Width="270" Grid.Row="3" Grid.Column="1" Margin="18,0,17,20"  SelectionChanged="params_textbox_SelectionChanged"/>
+        <TextBox x:Name="values_textbox" VerticalAlignment="Top" Width="270" Height="30" Grid.Row="4" Grid.Column="1"  SelectionChanged="values_textbox_SelectionChanged" ></TextBox>
         <Button Grid.Column="2" Content="Выбрать изображение" HorizontalAlignment="Center" Margin="0,5,0,0" Grid.Row="4" VerticalAlignment="Top" Height="23" Width="149" Click="Button_Click_1"/>
 
         <StatusBar VerticalAlignment="Bottom"  Margin="0,0,0,0" Grid.Row="6" Grid.ColumnSpan="3" Height="50">
             <StatusBarItem HorizontalAlignment="Right">
                 <Button Content="Далее" HorizontalAlignment="Right" Height="22" Width="80" VerticalAlignment="Bottom" Margin="0,0,16,0" Click="Button_Click"/>
             </StatusBarItem>
-           
+
         </StatusBar>
-        <Button Grid.Row="5" x:Name="Symbols" Content="Символы" Width="100" />
+        <Button Grid.Row="5" x:Name="Symbols" Focusable="False" Content="Символы" Width="100" Click="Symbols_Click" />
         <Popup x:Name="SymbolsPopup" StaysOpen="True" IsOpen="{Binding Mode=OneWay, ElementName=Symbols, Path=IsFocused}" PlacementTarget="{Binding ElementName=Symbols}" >
-            <WrapPanel x:Name="wrapSymb" Width="200"  ItemHeight="40" ItemWidth="50" AutomationProperties.ItemType="" PreviewMouseDown="WrapPanel_PreviewMouseDown" >
-                <Button Content="α"/>
-                <Button Content="β"/>
-                <Button Content="γ"/>
-                <Button Content="δ"/>
-                <Button Content="ε"/>
-                <Button Content="η"/>
-                <Button Content="θ"/>
-                <Button Content="λ"/>
-                <Button Content="μ"/>
-                <Button Content="φ"/>
-                <Button Content="σ"/>
-                <Button Content="ρ"/>
-                <Button Content="ω"/>
-                <Button Content="Δ"/>
-                <Button Content="Θ"/>
-                <Button Content="Λ"/>
-                <Button Content="Ω"/>
+            <WrapPanel x:Name="wrapSymb" Width="200"  ItemHeight="40" ItemWidth="50" AutomationProperties.ItemType="" PreviewMouseDown="WrapPanel_PreviewMouseDown" Focusable="False">
+                <Button Content="α" Focusable="False"/>
+                <Button Content="β" Focusable="False"/>
+                <Button Content="γ" Focusable="False"/>
+                <Button Content="δ" Focusable="False"/>
+                <Button Content="ε" Focusable="False"/>
+                <Button Content="η" Focusable="False"/>
+                <Button Content="θ" Focusable="False"/>
+                <Button Content="λ" Focusable="False"/>
+                <Button Content="μ" Focusable="False"/>
+                <Button Content="φ" Focusable="False"/>
+                <Button Content="σ" Focusable="False"/>
+                <Button Content="ρ" Focusable="False"/>
+                <Button Content="ω" Focusable="False"/>
+                <Button Content="Δ" Focusable="False"/>
+                <Button Content="Θ" Focusable="False"/>
+                <Button Content="Λ" Focusable="False"/>
+                <Button Content="Ω" Focusable="False"/>
             </WrapPanel>
         </Popup>
     </Grid>

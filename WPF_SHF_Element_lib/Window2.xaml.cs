@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -156,7 +157,7 @@ namespace WPF_SHF_Element_lib
             
             foreach (DataGrid1_Parameters element in Data.dataGrid1_Parameters)
             {
-                if (string.IsNullOrEmpty(dataGridParameters.Rows[i].Cells[0].Value.ToString()) )
+                if (dataGridParameters.Rows[i].Cells[0].Value == null || string.IsNullOrEmpty(dataGridParameters.Rows[i].Cells[0].Value.ToString()) )
                 {
                     f = true;
                     break;
@@ -172,7 +173,7 @@ namespace WPF_SHF_Element_lib
             foreach (DataGrid1_Elements element in Data.dataGrid1_Elements)
             {
 
-                if (string.IsNullOrEmpty(dataGridValues.Rows[i].Cells[0].Value.ToString()))
+                if (dataGridParameters.Rows[i].Cells[0].Value == null || string.IsNullOrEmpty(dataGridValues.Rows[i].Cells[0].Value.ToString()))
                 {
                     f = true;
                     break;

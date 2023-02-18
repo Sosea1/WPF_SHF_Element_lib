@@ -13,6 +13,9 @@ using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Forms;
 using TextBox = System.Windows.Controls.TextBox;
+using System.Windows.Input;
+using System.Windows.Controls;
+using Button = System.Windows.Controls.Button;
 
 namespace WPF_SHF_Element_lib
 {
@@ -21,7 +24,9 @@ namespace WPF_SHF_Element_lib
     /// </summary>
     public partial class Window1 : Window
     {
-
+        private int textBox = 0;
+        private int selectionStart = 0;
+        private string text = null;
         private Dictionary<string, string> operators = new Dictionary<string, string>()
         {
             {"α","α"},
@@ -47,14 +52,11 @@ namespace WPF_SHF_Element_lib
         public Window1()
         {
             InitializeComponent();
-
             comboBox1.SelectedIndex = 0;
             if (string.IsNullOrEmpty(Data.values_text) == false) values_textbox.Text = Data.values_text;
             if (Data.group != 0) comboBox1.SelectedIndex = Data.group - 1;
             if (string.IsNullOrEmpty(Data.name) == false) nameElement.Text = Data.name;
             if (string.IsNullOrEmpty(Data.parametersText) == false) params_textbox.Text = Data.parametersText;
-
-
         }
 
         public void copy_file()
@@ -129,20 +131,30 @@ namespace WPF_SHF_Element_lib
 
         private void WrapPanel_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (!(params_textbox.IsFocused) && !(values_textbox.IsFocused)) return;
+            if (textBox == 0) return;
             Point pt1 = e.GetPosition(wrapSymb);
             HitTestResult result1 = VisualTreeHelper.HitTest(wrapSymb, pt1);
             System.Windows.Controls.Button button = Data.FindParent<System.Windows.Controls.Button>(result1.VisualHit);
             if (button != null)
             {
-                TextBox textBox = null;
-                if (params_textbox.IsFocused) textBox = params_textbox;
-                else textBox = values_textbox;
-                var temp = (params_textbox).SelectionStart;
                 if (operators.TryGetValue(button.Content.ToString(), out string value))
                 {
-                    textBox.SelectedText = value;
-                    textBox.SelectionStart = temp + 1;
+                    if(textBox == 1)
+                    {
+                        int temp = selectionStart;
+                        params_textbox.Text = params_textbox.Text.Insert(temp, value);
+                        temp++;
+                        params_textbox.SelectionStart = temp;
+                        selectionStart =  temp;
+                    }
+                    else
+                    {
+                        int temp = selectionStart;
+                        values_textbox.Text = values_textbox.Text.Insert(temp, value);
+                        temp++;
+                        values_textbox.SelectionStart = temp;
+                        selectionStart = temp;
+                    }
                 }
             }
         }
@@ -182,6 +194,39 @@ namespace WPF_SHF_Element_lib
                     }
                 }
             }
+        }
+
+        private void nameElement_GotFocus(object sender, RoutedEventArgs e)
+        {
+            textBox = 0;
+        }
+
+        private void Symbols_Click(object sender, RoutedEventArgs e)
+        {
+            SymbolsPopup.IsOpen = true;
+        }
+
+        private void grid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Point point = e.GetPosition(wrapSymb);
+            if(point.X == 0 && point.Y == 0)
+                return;
+            HitTestResult result = VisualTreeHelper.HitTest(wrapSymb, point);
+            if(result != null) return;
+            SymbolsPopup.IsOpen = false;
+        }
+
+        private void params_textbox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            textBox = 1;
+            Console.WriteLine(params_textbox.CaretIndex);
+            selectionStart = params_textbox.CaretIndex;
+        }
+
+        private void values_textbox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            textBox = 2;
+            selectionStart = values_textbox.CaretIndex;
         }
     }
 
