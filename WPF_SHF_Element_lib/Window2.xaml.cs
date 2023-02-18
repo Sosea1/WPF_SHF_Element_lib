@@ -210,7 +210,7 @@ namespace WPF_SHF_Element_lib
             {"sin(x)","sin()"},
             {"cos(x)","cos()"},
             {"tan(x)","tan()"},
-            {"cot(x)","cot()"},
+            {"cot(x)","cotan()"},
             {"˚","˚"},
             {"α","α"},
             {"β","β"},
