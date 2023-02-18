@@ -73,8 +73,6 @@ namespace WPF_SHF_Element_lib
 
             dataGridValues.CellMouseClick += DataGridView_CellMouseClick;
 
-            Console.WriteLine(Data.values[0]);
-            Console.WriteLine(Data.parameters.Count);
             bool f = false;
             if(Data.ValuesChanged == true)
             {
