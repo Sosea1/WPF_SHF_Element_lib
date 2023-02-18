@@ -40,7 +40,6 @@
             <Button x:Name="Operators" Content="Операторы" Width="100">
             </Button>
             <Button x:Name="Symbols" Content="Символы" Width="100" />
-            <Button x:Name="Constants" Content="Константы" Width="100"/>
             <Popup x:Name="OperatorPopup" StaysOpen="True" IsOpen="{Binding Mode=OneWay, ElementName=Operators, Path=IsFocused}" PlacementTarget="{Binding ElementName=Operators}" >
                 <WrapPanel x:Name="wrapOperators" Width="200"  ItemHeight="40" ItemWidth="50" AutomationProperties.ItemType="" PreviewMouseDown="WrapPanel_PreviewMouseDown" >
                     <Button Content="+"/>
@@ -83,12 +82,12 @@
         </StackPanel>
 
     </Grid>
-    <Window.Resources>
+    <!--<Window.Resources>
         <Style TargetType="Button">
             <Setter Property="FontFamily" Value="Verdana"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="Background" Value="White"/>
             <Setter Property="BorderThickness" Value="1"/>
         </Style>
-    </Window.Resources>
+    </Window.Resources>-->
 </Window>
