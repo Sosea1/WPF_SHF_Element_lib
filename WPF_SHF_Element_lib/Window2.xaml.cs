@@ -173,7 +173,7 @@ namespace WPF_SHF_Element_lib
             foreach (DataGrid1_Elements element in Data.dataGrid1_Elements)
             {
 
-                if (dataGridParameters.Rows[i].Cells[0].Value == null || string.IsNullOrEmpty(dataGridValues.Rows[i].Cells[0].Value.ToString()))
+                if (dataGridValues.Rows[i].Cells[0].Value == null || string.IsNullOrEmpty(dataGridValues.Rows[i].Cells[0].Value.ToString()))
                 {
                     f = true;
                     break;
